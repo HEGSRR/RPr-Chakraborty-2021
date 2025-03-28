@@ -1,6 +1,0 @@
-﻿file_path,file_name,title,description,type,date
-results\figure,covid_rates.png,"COVID-19 Cases per 100,000","Number of COVID-19 cases per 100,000",PNG,6/6/22
-results\figure,disability_rates.png,Percent with Disability,Percentages of population in each county with disability,PNG,6/6/22
-results\figure,rr_original.png,Original Relative Risk,Relative risk score calculated using Chakraborty's original approach,PNG,6/6/22
-results\figure,rr_reproduction.png,Local Relative Risk,Relative risk score for reproduction analysis,PNG,6/6/22
-results\tables,compare_gee_results.xlsx,GEE Results ,Comparing gee results between the original study and the reproduction study,xlsx,6/6/22

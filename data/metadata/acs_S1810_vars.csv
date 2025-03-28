@@ -1,0 +1,208 @@
+name,label,concept
+S1810_C01_001,Estimate!!Total!!Subject!!Total civilian noninstitutionalized population,DISABILITY CHARACTERISTICS
+S1810_C01_002,Estimate!!Total!!Subject!!SEX!!Male,DISABILITY CHARACTERISTICS
+S1810_C01_003,Estimate!!Total!!Subject!!SEX!!Female,DISABILITY CHARACTERISTICS
+S1810_C01_004,Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!White alone,DISABILITY CHARACTERISTICS
+S1810_C01_005,Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Black or African American alone,DISABILITY CHARACTERISTICS
+S1810_C01_006,Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!American Indian and Alaska Native alone,DISABILITY CHARACTERISTICS
+S1810_C01_007,Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Asian alone,DISABILITY CHARACTERISTICS
+S1810_C01_008,Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Native Hawaiian and Other Pacific Islander alone,DISABILITY CHARACTERISTICS
+S1810_C01_009,Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Some other race alone,DISABILITY CHARACTERISTICS
+S1810_C01_010,Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Two or more races,DISABILITY CHARACTERISTICS
+S1810_C01_011,"Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!White alone, not Hispanic or Latino",DISABILITY CHARACTERISTICS
+S1810_C01_012,Estimate!!Total!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Hispanic or Latino (of any race),DISABILITY CHARACTERISTICS
+S1810_C01_013,Estimate!!Total!!Subject!!AGE!!Under 5 years,DISABILITY CHARACTERISTICS
+S1810_C01_014,Estimate!!Total!!Subject!!AGE!!5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C01_015,Estimate!!Total!!Subject!!AGE!!18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C01_016,Estimate!!Total!!Subject!!AGE!!35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_017,Estimate!!Total!!Subject!!AGE!!65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C01_018,Estimate!!Total!!Subject!!AGE!!75 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_019,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty,DISABILITY CHARACTERISTICS
+S1810_C01_020,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C01_021,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years!!Population under 5 years,DISABILITY CHARACTERISTICS
+S1810_C01_022,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years!!Population 5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C01_023,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_024,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C01_025,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_026,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_027,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C01_028,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_029,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty,DISABILITY CHARACTERISTICS
+S1810_C01_030,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C01_031,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years!!Population under 5 years,DISABILITY CHARACTERISTICS
+S1810_C01_032,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years!!Population 5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C01_033,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_034,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C01_035,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_036,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_037,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C01_038,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_039,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty,DISABILITY CHARACTERISTICS
+S1810_C01_040,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C01_041,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_042,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C01_043,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_044,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_045,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C01_046,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_047,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty,DISABILITY CHARACTERISTICS
+S1810_C01_048,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C01_049,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_050,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C01_051,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_052,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_053,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C01_054,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_055,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty,DISABILITY CHARACTERISTICS
+S1810_C01_056,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C01_057,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_058,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C01_059,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_060,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_061,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C01_062,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_063,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty,DISABILITY CHARACTERISTICS
+S1810_C01_064,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_065,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C01_066,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C01_067,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C01_068,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C01_069,Estimate!!Total!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_001,Estimate!!With a disability!!Subject!!Total civilian noninstitutionalized population,DISABILITY CHARACTERISTICS
+S1810_C02_002,Estimate!!With a disability!!Subject!!SEX!!Male,DISABILITY CHARACTERISTICS
+S1810_C02_003,Estimate!!With a disability!!Subject!!SEX!!Female,DISABILITY CHARACTERISTICS
+S1810_C02_004,Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!White alone,DISABILITY CHARACTERISTICS
+S1810_C02_005,Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Black or African American alone,DISABILITY CHARACTERISTICS
+S1810_C02_006,Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!American Indian and Alaska Native alone,DISABILITY CHARACTERISTICS
+S1810_C02_007,Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Asian alone,DISABILITY CHARACTERISTICS
+S1810_C02_008,Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Native Hawaiian and Other Pacific Islander alone,DISABILITY CHARACTERISTICS
+S1810_C02_009,Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Some other race alone,DISABILITY CHARACTERISTICS
+S1810_C02_010,Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Two or more races,DISABILITY CHARACTERISTICS
+S1810_C02_011,"Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!White alone, not Hispanic or Latino",DISABILITY CHARACTERISTICS
+S1810_C02_012,Estimate!!With a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Hispanic or Latino (of any race),DISABILITY CHARACTERISTICS
+S1810_C02_013,Estimate!!With a disability!!Subject!!AGE!!Under 5 years,DISABILITY CHARACTERISTICS
+S1810_C02_014,Estimate!!With a disability!!Subject!!AGE!!5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C02_015,Estimate!!With a disability!!Subject!!AGE!!18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C02_016,Estimate!!With a disability!!Subject!!AGE!!35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_017,Estimate!!With a disability!!Subject!!AGE!!65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C02_018,Estimate!!With a disability!!Subject!!AGE!!75 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_019,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty,DISABILITY CHARACTERISTICS
+S1810_C02_020,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C02_021,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years!!Population under 5 years,DISABILITY CHARACTERISTICS
+S1810_C02_022,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years!!Population 5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C02_023,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_024,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C02_025,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_026,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_027,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C02_028,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_029,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty,DISABILITY CHARACTERISTICS
+S1810_C02_030,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C02_031,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years!!Population under 5 years,DISABILITY CHARACTERISTICS
+S1810_C02_032,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years!!Population 5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C02_033,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_034,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C02_035,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_036,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_037,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C02_038,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_039,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty,DISABILITY CHARACTERISTICS
+S1810_C02_040,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C02_041,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_042,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C02_043,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_044,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_045,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C02_046,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_047,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty,DISABILITY CHARACTERISTICS
+S1810_C02_048,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C02_049,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_050,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C02_051,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_052,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_053,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C02_054,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_055,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty,DISABILITY CHARACTERISTICS
+S1810_C02_056,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C02_057,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_058,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C02_059,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_060,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_061,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C02_062,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_063,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty,DISABILITY CHARACTERISTICS
+S1810_C02_064,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_065,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C02_066,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C02_067,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C02_068,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C02_069,Estimate!!With a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_001,Estimate!!Percent with a disability!!Subject!!Total civilian noninstitutionalized population,DISABILITY CHARACTERISTICS
+S1810_C03_002,Estimate!!Percent with a disability!!Subject!!SEX!!Male,DISABILITY CHARACTERISTICS
+S1810_C03_003,Estimate!!Percent with a disability!!Subject!!SEX!!Female,DISABILITY CHARACTERISTICS
+S1810_C03_004,Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!White alone,DISABILITY CHARACTERISTICS
+S1810_C03_005,Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Black or African American alone,DISABILITY CHARACTERISTICS
+S1810_C03_006,Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!American Indian and Alaska Native alone,DISABILITY CHARACTERISTICS
+S1810_C03_007,Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Asian alone,DISABILITY CHARACTERISTICS
+S1810_C03_008,Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Native Hawaiian and Other Pacific Islander alone,DISABILITY CHARACTERISTICS
+S1810_C03_009,Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Some other race alone,DISABILITY CHARACTERISTICS
+S1810_C03_010,Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Two or more races,DISABILITY CHARACTERISTICS
+S1810_C03_011,"Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!White alone, not Hispanic or Latino",DISABILITY CHARACTERISTICS
+S1810_C03_012,Estimate!!Percent with a disability!!Subject!!RACE AND HISPANIC OR LATINO ORIGIN!!Hispanic or Latino (of any race),DISABILITY CHARACTERISTICS
+S1810_C03_013,Estimate!!Percent with a disability!!Subject!!AGE!!Under 5 years,DISABILITY CHARACTERISTICS
+S1810_C03_014,Estimate!!Percent with a disability!!Subject!!AGE!!5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C03_015,Estimate!!Percent with a disability!!Subject!!AGE!!18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C03_016,Estimate!!Percent with a disability!!Subject!!AGE!!35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_017,Estimate!!Percent with a disability!!Subject!!AGE!!65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C03_018,Estimate!!Percent with a disability!!Subject!!AGE!!75 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_019,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty,DISABILITY CHARACTERISTICS
+S1810_C03_020,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C03_021,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years!!Population under 5 years,DISABILITY CHARACTERISTICS
+S1810_C03_022,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population under 18 years!!Population 5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C03_023,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_024,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C03_025,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_026,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_027,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C03_028,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a hearing difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_029,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty,DISABILITY CHARACTERISTICS
+S1810_C03_030,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C03_031,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years!!Population under 5 years,DISABILITY CHARACTERISTICS
+S1810_C03_032,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population under 18 years!!Population 5 to 17 years,DISABILITY CHARACTERISTICS
+S1810_C03_033,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_034,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C03_035,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_036,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_037,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C03_038,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a vision difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_039,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty,DISABILITY CHARACTERISTICS
+S1810_C03_040,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C03_041,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_042,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C03_043,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_044,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_045,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C03_046,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a cognitive difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_047,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty,DISABILITY CHARACTERISTICS
+S1810_C03_048,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C03_049,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_050,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C03_051,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_052,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_053,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C03_054,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an ambulatory difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_055,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty,DISABILITY CHARACTERISTICS
+S1810_C03_056,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population under 18 years,DISABILITY CHARACTERISTICS
+S1810_C03_057,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_058,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C03_059,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_060,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_061,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C03_062,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With a self-care difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_063,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty,DISABILITY CHARACTERISTICS
+S1810_C03_064,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_065,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years!!Population 18 to 34 years,DISABILITY CHARACTERISTICS
+S1810_C03_066,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 18 to 64 years!!Population 35 to 64 years,DISABILITY CHARACTERISTICS
+S1810_C03_067,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over,DISABILITY CHARACTERISTICS
+S1810_C03_068,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over!!Population 65 to 74 years,DISABILITY CHARACTERISTICS
+S1810_C03_069,Estimate!!Percent with a disability!!Subject!!DISABILITY TYPE BY DETAILED AGE!!With an independent living difficulty!!Population 65 years and over!!Population 75 years and over,DISABILITY CHARACTERISTICS

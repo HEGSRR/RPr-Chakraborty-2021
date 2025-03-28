@@ -1,0 +1,23 @@
+name,label,concept,geography
+C18130_001,Estimate!!Total,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_002,Estimate!!Total!!Under 18 years,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_003,Estimate!!Total!!Under 18 years!!With a disability,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_004,Estimate!!Total!!Under 18 years!!With a disability!!Income in the past 12-months below poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_005,Estimate!!Total!!Under 18 years!!With a disability!!Income in the past 12-months at or above poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_006,Estimate!!Total!!Under 18 years!!No disability,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_007,Estimate!!Total!!Under 18 years!!No disability!!Income in the past 12-months below poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_008,Estimate!!Total!!Under 18 years!!No disability!!Income in the past 12-months at or above poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_009,Estimate!!Total!!18 to 64 years,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_010,Estimate!!Total!!18 to 64 years!!With a disability,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_011,Estimate!!Total!!18 to 64 years!!With a disability!!Income in the past 12-months below poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_012,Estimate!!Total!!18 to 64 years!!With a disability!!Income in the past 12-months at or above poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_013,Estimate!!Total!!18 to 64 years!!No disability,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_014,Estimate!!Total!!18 to 64 years!!No disability!!Income in the past 12-months below poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_015,Estimate!!Total!!18 to 64 years!!No disability!!Income in the past 12-months at or above poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_016,Estimate!!Total!!65 years and over,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_017,Estimate!!Total!!65 years and over!!With a disability,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_018,Estimate!!Total!!65 years and over!!With a disability!!Income in the past 12-months below poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_019,Estimate!!Total!!65 years and over!!With a disability!!Income in the past 12-months at or above poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_020,Estimate!!Total!!65 years and over!!No disability,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_021,Estimate!!Total!!65 years and over!!No disability!!Income in the past 12-months below poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract
+C18130_022,Estimate!!Total!!65 years and over!!No disability!!Income in the past 12-months at or above poverty level,AGE BY DISABILITY STATUS BY POVERTY STATUS,tract

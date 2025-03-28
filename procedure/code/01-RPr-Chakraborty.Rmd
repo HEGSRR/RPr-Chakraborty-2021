@@ -83,8 +83,6 @@ Census American Community Survey (ACS) five-year estimates for 2018 (2014-2018).
 
 There is no **randomization** in the original study.
 
-![](../../docs/report/workflow.jpg "Workflow diagram")
-
 # Computational environment
 
 The study was originally conducted using SaTScan software to implement the Kulldorff spatial scan statistic.
@@ -111,10 +109,10 @@ if(!require(here)){
   require(here)
 }
 
-groundhog.day <- "2023-06-26"
-set.groundhog.folder(here("data", "scratch", "groundhog"))
+groundhog.day <- "2025-02-01"
 
-groundhog.library(packages, groundhog.day)
+groundhog.library(packages, groundhog.day,
+                  tolerate.R.version='4.4.1')
 # you may need to...
 # install a correct version of R
 # install the rstudioapi package with install.packages("rstudioapi")
@@ -177,6 +175,17 @@ Details on ACS data collection can be found at <https://www.census.gov/topics/he
 
 American Community Survey (ACS) data for sociodemographic subcategories of people with disabilities can be accessed by using the `tidycensus` package to query the Census API. This requires an API key which can be acquired at [api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).
 
+```{r}
+acs_subject_vars <- load_variables(2018, "acs5/subject")
+acs_vars_S1810 <- acs_subject_vars |> filter(str_detect(name, "S1810"))
+write_csv(acs_vars_S1810, here("data", "metadata", "acs_S1810_vars.csv"))
+
+acs_vars <- load_variables(2018, "acs5")
+acs_vars_C18130 <- acs_vars |> filter(str_detect(name, "C18130"))
+write_csv(acs_vars_C18130, here("data", "metadata", "acs_C18130_vars.csv"))
+```
+
+
 ```{r API-Load-ACS, eval=FALSE}
 # If you wish to use a census API key, run the census_api_key() function in the console
 
@@ -215,6 +224,7 @@ saveRDS(acs_pov, here("data", "raw", "public", "acs_pov.RDS"))
 saveRDS(state, here("data", "raw", "public", "state.RDS"))
 ```
 
+
 ```{r load-acs}
 acs <- readRDS(here("data", "raw", "public", "acs.RDS"))
 acs_pov <- readRDS(here("data", "raw", "public", "acs_pov.RDS"))
@@ -248,12 +258,12 @@ Optionally, save the raw ACS data to `data/raw/public/acs.gpkg` for use in GIS s
 
 ```{r save-ACS, message = F, eval = FALSE}
 # Save downloaded acs data to acs.gpkg
-write_sf(
+st_write(
   acs,
   here("data", "derived", "public", "acs.gpkg"),
   layer = "acs"
 )
-write_sf(
+st_write(
   state,
   here("data", "derived", "public", "acs.gpkg"),
   layer = "state"
@@ -357,14 +367,19 @@ However, we replace the missing data with zeros, producing results identical to 
 ```{r missing data}
 # county with missing data
 filter(acs_covid, is.na(bpov_pct)) %>% st_drop_geometry() %>% kable()
-
-# replace NA with 0 for missing data
-acs_covid[is.na(acs_covid$bpov_pct), ]$bpov_pct <- 0
-acs_covid[is.na(acs_covid$apov_pct), ]$apov_pct <- 0
 ```
 
-## Map COVID-19 incidence
+Replace the `NA` values with `0`.
 
+```{r replace-na}
+acs_covid <- acs_covid %>% replace_na(list(bpov_pct = 0,
+                                           apov_pct = 0))
+
+```
+
+
+## Map COVID-19 incidence
+ 
 Map the county level distribution of COVID-19 incidence rates, comparing to Figure 1 of the original study.
 
 ```{r map-covid-rates, message = FALSE}
@@ -793,6 +808,8 @@ This can be done by assigning unique cluster ID's to each county within a cluste
 Clusters include the county at the center of a cluster and all of the other counties within the cluster radius.
 Therefore, we use the FIPS code of the county at the center of each cluster as the unique cluster ID.
 
+#UPDATE: Can this be done in tidy way?
+
 ```{r assign-cluster-IDs, message = FALSE}
 # list of primary cluster locations (counties)
 cluster_locations <- covid_kulldorff$most.likely.cluster$location.IDs.included
@@ -839,6 +856,8 @@ acs_covid <- acs_covid[, 1:which(colnames(acs_covid) == "or_incidence")] %>%
 ```
 
 **Planned deviation for reproduction**: Map the `SpatialEpi` cluster results.
+
+#UPDATE: Tmap changed!
 
 ```{r map-clusters}
 tm_spatialepi_clusters <-
@@ -918,6 +937,8 @@ acs_covid <- acs_covid %>%
 
 First, map the spatial distribution of local relative risk score classifications.
 
+#UPDATE: Tmap changed!
+
 ```{r map local relative risk score}
 # count the frequency of counties in each class and create labels
 class_freq <- acs_covid %>% st_drop_geometry() %>% count(loc_class)
@@ -956,6 +977,8 @@ tm_spatialepi_local_risk_class
 
 Next, map the cluster relative risk scores for comparison.
 Note that following the original study classification methodology, counties outside of clusters are assigned the lowest risk class of `1`.
+
+#UPDATE: Can this be done in tidy way?
 
 ```{r map-cluster-relative-risk-classes}
 # count the frequency of counties in each class and create labels
