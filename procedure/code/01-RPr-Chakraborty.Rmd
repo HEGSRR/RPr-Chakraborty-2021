@@ -10,7 +10,7 @@ knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "../../docs") })
 ---
 
-Version 2.0 \| First Created July 7, 2021 \| Updated March 28, 2025
+Version 2.0 \| First Created July 7, 2021 \| Updated December 8, 2025
 
 # Abstract
 
@@ -112,7 +112,7 @@ if(!require(here)){
 groundhog.day <- "2025-02-01"
 
 groundhog.library(packages, groundhog.day,
-                  tolerate.R.version='4.4.1')
+                  tolerate.R.version='4.4.2')
 # you may need to...
 # install a correct version of R
 # install the rstudioapi package with install.packages("rstudioapi")
@@ -175,7 +175,7 @@ Details on ACS data collection can be found at <https://www.census.gov/topics/he
 
 American Community Survey (ACS) data for sociodemographic subcategories of people with disabilities can be accessed by using the `tidycensus` package to query the Census API. This requires an API key which can be acquired at [api.census.gov/data/key_signup.html](https://api.census.gov/data/key_signup.html).
 
-```{r}
+```{r, eval=FALSE}
 acs_subject_vars <- load_variables(2018, "acs5/subject")
 acs_vars_S1810 <- acs_subject_vars |> filter(str_detect(name, "S1810"))
 write_csv(acs_vars_S1810, here("data", "metadata", "acs_S1810_vars.csv"))
@@ -377,6 +377,21 @@ acs_covid <- acs_covid %>% replace_na(list(bpov_pct = 0,
 
 ```
 
+Save prepared data
+
+```{r eval = FALSE}
+st_write(
+  acs_covid,
+  here("data", "derived", "public", "acs_covid.gpkg"),
+  layer = "acs_covid"
+)
+```
+
+Load prepared data
+
+```{r eval = FALSE}
+acs_covid <- read_sf(here("data", "derived", "public", "acs_covid.gpkg"))
+```
 
 ## Map COVID-19 incidence
  
@@ -395,7 +410,7 @@ tm_covid_rates <- tm_shape(acs_covid) +
     tm_borders("grey", lwd = .5) +
   tm_layout(
     legend.position = c("left", "bottom"),
-    legend.title.size = 0.8,
+    legend.title.size = 0.7,
     legend.text.size = 0.5
   )
 
@@ -419,7 +434,7 @@ tm_disability_rates <- tm_shape(acs_covid) +
   tm_borders("grey", lwd = .5) +
   tm_layout(
     legend.position = c("left", "bottom"),
-    legend.title.size = 0.8,
+    legend.title.size = 0.7,
     legend.text.size = 0.5
   )
 
@@ -541,16 +556,64 @@ correlations %>%
 ```
 
 Reproduction correlation coefficients varied slightly from the original study coefficients by +/- 0.006.
-All but one Pearson's correlation coefficient was significant to the same level, and the exception was age 18 to 34.
-Counter-intuitively, the correlation coefficient was slightly closer to 0 but the *p* value was also found to be more significant, suggesting a difference in the estimation of *t* and/or *p*, or a typographical error.
-All of the coefficients had the same direction.
 
-**Unplanned Deviation for Reproduction**: We should expect identical results for this correlation test, so we loaded the original author's data from `Aug1GEEdata.csv` to re-test the statistic, calculated as `unplanned_r` below.
+**Unplanned Deviation for Reproduction**: We should expect identical results for this correlation test, so we loaded the original author's data from `Aug1GEEdata.csv`.
 
-```{r original-data-pearson-correlation}
+First, we join the author's data to our own reproduction data.
+To enhance reproducibility, we create a function to join columns while avoiding duplicates with aliases.
+
+```{r join-function}
+# note that the right-hand table y is the first argument, so that the table
+# to be joined can be prepared through piping
+safe_left_join <- function(y, x, by) {
+
+  # Identify join columns as character vector
+  join_cols <- as.character(by)
+
+  # Columns in y excluding the join key(s)
+  y_nonjoin_cols <- setdiff(names(y), join_cols)
+
+  if (length(y_nonjoin_cols) == 0) {
+    # nothing to check — proceed directly
+    return(left_join(x, y, by = by))
+  }
+
+  # Find the first non-join column in y that matches a column in x
+  first_dup_index <- which(y_nonjoin_cols %in% names(x)) %>% first()
+
+  if (!is.na(first_dup_index)) {
+    # Names to drop from y: that column and all that follow
+    cols_to_drop <- y_nonjoin_cols[first_dup_index:length(y_nonjoin_cols)]
+    y <- y %>% select(-all_of(cols_to_drop))
+  }
+
+  # Perform the join with cleaned y
+  left_join(x, y, by = by)
+}
+# this function was written with help of ChatGPT
+```
+
+Then we join the original incidence data.
+
+```{r load-and-join-original-incidence-data}
 # load author-provided original data
 original_gee <- read.csv(here("data", "raw", "public", "chakraborty", "Aug1GEEdata.csv"))
 
+acs_covid <- original_gee |> 
+  select(COUNTY_FIPS, or_incidence = Incidence) |> 
+  mutate(fips =
+           ifelse(COUNTY_FIPS >= 10000,
+                  as.character(COUNTY_FIPS),
+                  paste0("0", COUNTY_FIPS)
+                  )
+         ) |> 
+  safe_left_join(acs_covid, "fips")
+```
+
+
+Next, we re-test the correlation statistic, calculated as `unplanned_r` below.
+
+```{r original-data-pearson-correlation}
 # calculate correlation coefficients using original data
 original_gee %>%
   select(Incidence, PerDisable, starts_with("PD")) %>%
@@ -570,8 +633,7 @@ original_gee %>%
 
 The author's original data produced coefficients identical to the original publication!
 Is it possible that the data values are correct but have been reassigned / transposed to different counties?
-
-*Unplanned Deviation for Reproduction*: Considering the precise bitwise reproduction of descriptive statistics and of correlation statistics from author-provided data, we decided to recalculate the COVID-19 incidence rate with author-provided case and population data for comparison to the author-provided incidence rate.
+Considering the precise bitwise reproduction of descriptive statistics and of correlation statistics from author-provided data, we decided to recalculate the COVID-19 incidence rate with author-provided case and population data for comparison to the author-provided incidence rate.
 
 ```{r compare-incidence-rate}
 # recalculate Incidence Rate
@@ -591,26 +653,9 @@ original_gee %>%
 We found that 13 counties had incorrect COVID-19 incidence scores, and the scores seem to be transposed from other counties, such that the overall descriptive statistics were accurate but the correlation coefficients were inaccurate.
 This finding implies that subsequent analyses using the COVID-19 Incidence rate will be slightly different and more accurate in this reproduction study than in the original study.
 
-**Unplanned deviation for reproduction:** Join the original author's Incidence data into our reproduction data frame so that we can later test for sensitivity to this error.
 Then report any counties for which the reproduced COVID incidence rate differs from the original author's COVID incidence rate.
 
-```{r join-incidence-rate}
-original_incidence <- original_gee %>%
-  select(COUNTY_FIPS, or_incidence = Incidence) %>%
-  mutate(fips =
-           ifelse(COUNTY_FIPS >= 10000,
-                  as.character(COUNTY_FIPS),
-                  paste0("0", COUNTY_FIPS)
-                  )
-         )
-  # calculates a text version of FIPS code for joining, while adding back
-  # the leading '0' if the code was less than 10000
-
-acs_covid <- acs_covid %>%
-  left_join(original_incidence, by = "fips")
-
-rm(original_incidence)
-
+```{r transposed-counties}
 acs_covid %>%
   st_drop_geometry %>%
   filter(covid_rate != or_incidence) %>%
@@ -619,8 +664,8 @@ acs_covid %>%
   kable(caption = "Original incidence rate joined to reproduction data") %>% kable_styling()
 ```
 
-The join worked, highlighting the same 13 counties with inconsistent incidence rates.
-This also confirms that our reproduced dependent variable is identical to the original dependent variable with the exception of these three counties.
+This highlights the same 13 counties with inconsistent incidence rates.
+This also confirms that our reproduced dependent variable is identical to the original dependent variable with the exception of these 13 counties.
 
 ## Bivariate nonparametric correlation analysis
 
@@ -736,40 +781,50 @@ The Kulldorff spatial scan statistic model in SpatialEpi also supports a discret
 We expected that this set of software options could reproduce identical results compared to SaTScan.
 
 First, calculate the Kulldorff spatial scan statistic using SpatialEpi.
-Optionally, skip this code block due to long run times of more than 10 minutes.
+Define a function `kulldorff_function` to accept a table of geographic, population, and case data, and a maximum cluster size in terms of percent of total population.
+
+```{r kulldorff-function}
+kulldorff_function <- function(kulldorff_table, maxPop){
+  start_time <- Sys.time()
+  kulldorff_geo <- kulldorff_table %>%
+    select(x, y) %>%
+    latlong2grid()
+  # latlong2grid creates approximate equidistant cylindrical grid
+  # could probably reproject to epsg 5070 and create table with x and y
+  
+  # calculate expected cases with one strata
+  expected.cases <- expected(kulldorff_table$pop, kulldorff_table$cases, 1)
+
+  # Kulldorff spatial scan statistic
+  kulldorff_result <- kulldorff(
+    geo = kulldorff_geo,
+    cases = kulldorff_table$cases,
+    population = kulldorff_table$pop,
+    expected.cases = expected.cases,
+    pop.upper.bound = maxPop,
+    n.simulations = 999,
+    alpha.level = 0.05,
+    plot = TRUE
+  )
+  
+  print(
+    paste(
+      "Run time:",
+      round(difftime(Sys.time(), start_time, units = "mins"), 2),
+      "minutes"
+    ),
+    quote = FALSE
+  )
+  
+  return(kulldorff_result)
+}
+```
+
+Calculate Kulldorff spatial scan statistics with a maximum cluster size of `50%`.
 
 ```{r SpatialEpi-Kulldorff, eval = FALSE, fig.width=4, fig.height=4}
-start_time <- Sys.time()
-covid_geo <- covid_table %>%
-  select(x, y) %>%
-  latlong2grid()
-# latlong2grid creates approximate equidistant cylindrical grid
-# could probably reproject to epsg 5070 and create table with x and y
-
-# calculate expected cases with one strata
-expected.cases <- expected(covid_table$pop, covid_table$cases, 1)
-
 # Kulldorff spatial scan statistic
-covid_kulldorff <- kulldorff(
-  geo = covid_geo,
-  cases = covid_table$cases,
-  population = covid_table$pop,
-  expected.cases = expected.cases,
-  pop.upper.bound = 0.5,
-  n.simulations = 999,
-  alpha.level = 0.05,
-  plot = TRUE
-)
-
-print(
-  paste(
-    "Run time:",
-    round(difftime(Sys.time(), start_time, units = "mins"), 2),
-    "minutes"
-  ),
-  quote = FALSE
-)
-rm(covid_geo, expected.cases, start_time)
+covid_kulldorff <- kulldorff_function(covid_table, 0.5)
 
 # save results in a file appended with the current date
 saveRDS(covid_kulldorff,
@@ -786,9 +841,16 @@ Alternatively, skip or modify this code block to use your own version of the Spa
 covid_kulldorff <- readRDS(
   here("data", "derived", "public", "covid_kulldorff_2025-03-07.RDS")
 )
+covid_kulldorffb <- readRDS(
+  here("data", "derived", "public", "covid_kulldorff_2025-12-09.RDS")
+)
+covid_kulldorffc <- readRDS(
+  here("data", "derived", "public", "covid_kulldorff_2025-12-10.RDS")
+)
 ```
 
 Report Kulldorff spatial scan results.
+Note that because *p* values are calculated based on a monte carlo simulation and a minimum *p* is used to filter results, spatial scan results may vary with regards to the least likely clusters included.
 
 ```{r report-Kulldorff}
 print("Most likely cluster:", quote = FALSE)
@@ -803,35 +865,69 @@ print(
 ```
 
 The `SpatialEpi` implementation of Kulldorff spatial scan statistics provides output in the form of hierarchical lists analogous to the text output of SaTScan, but does not output a simple data frame or tabular output analogous to the shapefiles from SaTScan.
-Therefore, additional steps are required to append the Kulldorff scan results to the `acs_covid` simple features data frame.
+Therefore, additional steps are required to append the Kulldorff scan results to the `acs_covid` simple features data frame, implemented in the `kulldorff_broom` function below.
 This can be done by assigning unique cluster ID's to each county within a cluster.
 Clusters include the county at the center of a cluster and all of the other counties within the cluster radius.
 Therefore, we use the FIPS code of the county at the center of each cluster as the unique cluster ID.
 
-```{r assign-cluster-IDs, message = FALSE}
-# list of primary cluster locations (counties)
-cluster_locations <- covid_kulldorff$most.likely.cluster$location.IDs.included
-
-# create data frame of clusters and
-# calculate the clusterID as the first (center) county FIPS code
-clusters <- covid_table[cluster_locations, "fips"] %>%
-  mutate(clusterID = covid_table[[cluster_locations[1], "fips"]],
-         likelihood = covid_kulldorff$most.likely.cluster$log.likelihood.ratio)
-
-# Get a list of secondary clusters
-secondary <- covid_kulldorff$secondary.clusters
-
-# similarly add counties in each secondary cluster to the list of clusters
-for (i in secondary) {
-  cluster_locations <- i$location.IDs.included
-  new_clusters <- covid_table[cluster_locations, "fips"] %>%
-    mutate(clusterID = covid_table[[cluster_locations[1], "fips"]],
-           likelihood = i$log.likelihood.ratio)
-  clusters <- clusters %>% rbind(new_clusters)
+```{r kulldorff-df}
+kulldorff_broom <- function(kulldorff_result, kulldorff_table) {
+  # Load required package
+  require(dplyr)
+  
+  ## --- Primary cluster ---
+  cluster_locations <- kulldorff_result$most.likely.cluster$location.IDs.included
+  
+  clusters <- kulldorff_table[cluster_locations, "fips", drop = FALSE] %>%
+    mutate(
+      clusterID  = kulldorff_table[[cluster_locations[1], "fips"]],
+      likelihood = kulldorff_result$most.likely.cluster$log.likelihood.ratio
+    )
+  
+  ## --- Secondary clusters ---
+  secondary <- kulldorff_result$secondary.clusters
+  
+  for (i in secondary) {
+    cluster_locations <- i$location.IDs.included
+    
+    new_clusters <- kulldorff_table[cluster_locations, "fips", drop = FALSE] %>%
+      mutate(
+        clusterID  = kulldorff_table[[cluster_locations[1], "fips"]],
+        likelihood = i$log.likelihood.ratio
+      )
+    
+    clusters <- bind_rows(clusters, new_clusters)
+  }
+  
+  return(clusters)
 }
-
-rm(cluster_locations, secondary, i, new_clusters)
 ```
+
+**Unplanned Deviation for Reproduction**: Monte Carlo simluation may imply some randomness to the results.
+Create cleaned dataframe of three iterations of Kulldorff cluster results.
+Combine three different result sets into one dataframe for comparison.
+
+```{r assign-cluster-IDs, message = FALSE}
+clusters <- kulldorff_broom(covid_kulldorff, covid_table)
+clustersb <- kulldorff_broom(covid_kulldorffb, covid_table)
+clustersc <- kulldorff_broom(covid_kulldorffc, covid_table)
+
+clustersb <- clustersb |> select(fips, clusterIDb = clusterID, likelihoodb = likelihood)
+clustersc <- clustersc |> select(fips, clusterIDc = clusterID, likelihoodc = likelihood)
+clusters_comb <- clusters |> 
+  full_join(clustersb, by = "fips") |> 
+  full_join(clustersc, by = "fips") 
+clusters_comb$rp_clusIDcount <- rowSums(!is.na(select(clusters_comb, starts_with("clusterID"))))
+```
+
+Compare the county-wise clustering results by viewing all counties with variable results.
+
+```{r assign-cluster-IDs, message = FALSE}
+clusters_comb |> filter(rp_clusIDcount < 3)
+```
+
+Due to the Monte Carlo simulation to determine p-values and the use of a p-value cut-off, we have slightly different numbers of counties in clusters in each iteration.
+The cluster results are identical with the exception of a few single-county low-likelihood clusters.
 
 ### Map Kulldorff clusters
 
@@ -844,14 +940,16 @@ Next, calculate a new field `isCluster` to identify counties in COVID-19 cluster
 Additionally, distinguish between counties defining the center of a cluster from counties constituting other parts of a cluster by comparing the cluster ID (equivalent to the center county's fips code) to the county fips code.
 
 ```{r join-clusterID-to-acs_covid}
-acs_covid <- acs_covid[, 1:which(colnames(acs_covid) == "or_incidence")] %>%
-  left_join(clusters, by = "fips") %>%
+acs_covid <- clusters |> 
+  select(fips, se50cid = clusterID) |> 
+  safe_left_join(acs_covid, "fips") |> 
   mutate(isCluster = case_when(
-    clusterID == fips ~ "center of cluster",
-    !is.na(clusterID) ~ "other part of cluster",
+    se50cid == fips ~ "center of cluster",
+    !is.na(se50cid) ~ "other part of cluster",
     .default = NA
   ))
 ```
+
 
 **Planned deviation for reproduction**: Map the `SpatialEpi` cluster results.
 
@@ -871,7 +969,7 @@ tm_spatialepi_clusters <-
     tm_borders("grey", lwd = 0.5) +
   tm_layout(
     legend.position = c("left", "bottom"),
-    legend.title.size = 0.8,
+    legend.title.size = 0.7,
     legend.text.size = 0.5
   )
 
@@ -881,14 +979,14 @@ tm_spatialepi_clusters
 **Unplanned deviation for reproduction**: The `SpatialEpi` implementation of Kulldorff spatial scan statistics does not calculate local relative risk or cluster relative risk.
 Therefore, the next step is to calculate local and cluster relative risk (workflow step 7).
 
-```{r relative-risk}
+```{r local-relative-risk}
 total_pop <- sum(acs_covid$pop)
 total_cases <- sum(acs_covid$cases)
 
 acs_covid <- acs_covid %>%
-  group_by(clusterID) %>%
+  group_by(se50cid) %>%
   mutate(
-    rr_cluster = ifelse(is.na(clusterID), NA,
+    se50rr = ifelse(is.na(se50cid), NA,
       (sum(cases) / sum(pop)) / ((total_cases - sum(cases)) / (total_pop - sum(pop)))
     )
   ) %>%
@@ -896,8 +994,6 @@ acs_covid <- acs_covid %>%
   mutate(
     rr_loc = (cases / pop) / ((total_cases - cases) / (total_pop - pop))
   )
-
-rm(total_pop, total_cases)
 ```
 
 Classify relative risk on a scale from 1 to 6 (workflow step 8).
@@ -921,7 +1017,7 @@ breaks <- c(-Inf, 1, 2, 3, 4, 5, Inf)
 
 acs_covid <- acs_covid %>%
   mutate(
-    cluster_class = ifelse(is.na(clusterID), 1, cut(rr_cluster, breaks, labels = FALSE)),
+    se50rrc = ifelse(is.na(se50cid), 1, cut(se50rr, breaks, labels = FALSE)),
     loc_class = cut(rr_loc, breaks, labels = FALSE)
   )
 ```
@@ -959,7 +1055,7 @@ tm_spatialepi_local_risk_class <- tm_shape(acs_covid) +
   tm_borders("grey", lwd = .5) +
   tm_layout(
     legend.position = c("left", "bottom"),
-    legend.title.size = 0.8,
+    legend.title.size = 0.7,
     legend.text.size = 0.5
   )
 
@@ -973,11 +1069,11 @@ Note that following the original study classification methodology, counties outs
 
 ```{r map-cluster-relative-risk-classes}
 # count the frequency of counties in each class and create labels
-class_freq <- acs_covid %>% st_drop_geometry() %>% count(cluster_class)
+class_freq <- acs_covid %>% st_drop_geometry() %>% count(se50rrc)
 class_freq$qual <- ifelse(class_freq$n > 1, " counties", " county")
 class_freq[1, ]$qual <- paste(class_freq[1, ]$qual, "at low risk")
 class_freq[nrow(class_freq), ]$qual <- paste(class_freq[nrow(class_freq), ]$qual, "at high risk")
-class_freq$label <- paste0(class_freq$cluster_class,
+class_freq$label <- paste0(class_freq$se50rrc,
                            " (",
                            class_freq$n,
                            class_freq$qual,
@@ -985,7 +1081,7 @@ class_freq$label <- paste0(class_freq$cluster_class,
 
 # map cluster relative risk scores
 tm_spatialepi_cluster_risk_class <- tm_shape(acs_covid) +
-  tm_polygons(fill = "cluster_class",
+  tm_polygons(fill = "se50rrc",
               fill.scale = tm_scale_categorical(
                               values = "brewer.oranges",
                               labels = class_freq$label),
@@ -997,7 +1093,7 @@ tm_spatialepi_cluster_risk_class <- tm_shape(acs_covid) +
   tm_borders("grey", lwd = .5) +
   tm_layout(
     legend.position = c("left", "bottom"),
-    legend.title.size = 0.8,
+    legend.title.size = 0.7,
     legend.text.size = 0.5
   )
 
@@ -1022,14 +1118,14 @@ Then, we find the number of unique clusters and frequency counties per cluster i
 ```{r make-gee-clusters}
 # calculate clusters
 acs_covid <- acs_covid %>% mutate(
-  rp_clusID = as.integer(statefp) * 10 + cluster_class
+  se50rrcst = as.integer(statefp) * 10 + se50rrc
 )
 
 # summarize clustering results
 cluster_summary <- acs_covid %>%
   filter(cases > 0) %>%
   st_drop_geometry() %>%
-  count(rp_clusID)
+  count(se50rrcst)
 cat(
   length(cluster_summary$n),
   "unique clusters based on spatialEpi CLUSTER relative risk\n"
@@ -1094,15 +1190,11 @@ cat("Joining",
     "unique LOC_ID county values")
 
 # select important non-geographic columns
-satscan_rpr_col_t <- satscan_rpr_col %>%
-  st_drop_geometry() %>%
-  select(fips = LOC_ID, GINI_CLUST, REL_RISK)
-
-# join
-acs_covid <- acs_covid[, 1:which(colnames(acs_covid) == "rp_clusID")] %>%
-  left_join(satscan_rpr_col_t, by = "fips")
-
-rm(satscan_rpr_col_t)
+# and join to acs_covid
+acs_covid <- satscan_rpr_col |> 
+  st_drop_geometry() |> 
+  select(fips = LOC_ID, sscentgini = GINI_CLUST, sscentrr = REL_RISK) |> 
+  safe_left_join(acs_covid, "fips")
 ```
 
 **Unplanned deviation for reproduction**: Visualize the spatial distribution of the author-provided Kulldorff COVID-19 Clusters.
@@ -1130,14 +1222,13 @@ hier_circle <- satscan_rpr_col %>% filter(GINI_CLUST == FALSE)
 tm_author_clusters <-
   tm_shape(state) +
     tm_fill("gray98") +
-  tm_shape(acs_covid |> filter(!is.na(GINI_CLUST))) +
-  tm_polygons(fill = "GINI_CLUST",
+  tm_shape(acs_covid |> filter(!is.na(sscentgini))) +
+  tm_polygons(fill = "sscentgini",
               fill.scale = tm_scale(
                 labels = clus_labels,
                 values = c("tomato", "thistle3")),
               col = "white",
               lwd = 0.5,
-              popup.vars = c("fips", "clusterID"),
               fill.legend = tm_legend(title = "SaTScan Kulldorff COVID-19 Cluster\nCenters and Extents")
   ) +
   tm_shape(state) +
@@ -1148,17 +1239,15 @@ tm_author_clusters <-
     tm_borders(col = "tomato") +
     tm_layout(
     legend.position = c("left", "bottom"),
-    legend.title.size = 0.8,
+    legend.title.size = 0.7,
     legend.text.size = 0.5
   ) 
 
 tm_author_clusters
-```
 
-
-```{r remove-map-data}
 rm(gini_circle, hier_circle, clus_counts, clus_labels)
 ```
+
 
 In the map above, clusters containing only one county have no visible circle.
 Clusters containing two counties are encircled, but have no label.
@@ -1176,20 +1265,23 @@ These clusters are noted with `GINI_CLUST = T` in the results.
 
 Merged together as they are, the two sets of secondary clusters overlap one another geographically, causing ambiguity in terms of which cluster-based relative risk score should be used at each location.
 
+The total population is 325009505 and the maximum population of any GINI-optimized cluster is 12986739. 
+Therefore, the maximum ratio of population per cluster identified by GINI optimization was 0.039958, or about 4%.
+
 **Unplanned deviation for reproduction**: Can we also use these reproduced SaTScan results to exactly reproduce the author-reported frequency of original GEE classes and maximum counties per class?
 If the results match, it will confirm that the problems identified above have propagated through the original study analysis.
 
 ```{r reproduce-gee-clusters}
 acs_covid <- acs_covid %>%
   mutate(
-    ss_cluster_class = ifelse(is.na(REL_RISK), 1, cut(REL_RISK, breaks, labels = FALSE)),
-    ss_clusID = as.integer(statefp) * 10 + ss_cluster_class
+    sscentrrc = ifelse(is.na(sscentrr), 1, cut(sscentrr, breaks, labels = FALSE)),
+    sscentrrcst = as.integer(statefp) * 10 + sscentrrc
   )
 
 cluster_summary <- acs_covid %>%
   filter(cases > 0) %>%
   st_drop_geometry() %>%
-  count(ss_clusID)
+  count(sscentrrcst)
 cat(
   length(cluster_summary$n),
   "unique clusters based on spatialEpi CLUSTER relative risk\n"
@@ -1207,131 +1299,105 @@ We prefer to include *all counties* contained in each cluster, and to use only *
 
 Given the shifting goal, how sensitive is this study to the choice of computational environment for the Kulldorff scan statistics?
 To answer this question, we must load the local SaTSCan results inclusive of all counties within clusters, filter the results to focus on the standard hierarchical set of clusters, and compare the spatial distributions of the SaTScan and SpatialEpi results.
+First, we load the results, split them into the hierarchical and GINI-optimized sets, and join them to our complete set of counties.
 
-```{r join-satscan-clusters-all-counties, message = F}
+```{r gini-and-heir-clusters, message = F}
 # load local SaTScan reproduced data
 satscan_rpr_gis_t <- read_sf(
   here("data", "derived", "public", "satscan", "sat_scan_rpr.gis.shp")
 ) %>%
   st_drop_geometry() %>%
-  select(fips = LOC_ID, CLU_RR, GINI_CLUST)
+  select(fips = LOC_ID, CLUSTER, P_VALUE, CLU_RR, GINI_CLUST)
 
-# check if there are any duplicated counties
-cat("SaTScan combined GIS output has",
-    length(satscan_rpr_gis_t$fips),
-    "records with",
-    length(unique(satscan_rpr_gis_t$fips)),
-    "unique county values\n")
+# select Hierarchical results and join to all counties
+acs_covid <- satscan_rpr_gis_t |> 
+  filter(GINI_CLUST == FALSE) |> 
+  select(fips, sshierid = CLUSTER, sshierrr = CLU_RR) |> 
+  safe_left_join(acs_covid, "fips")
 
-satscan_rpr_gini <- satscan_rpr_gis_t %>% filter(GINI_CLUST == TRUE) %>% select(fips, gini_rr = CLU_RR)
-satscan_rpr_hier <- satscan_rpr_gis_t %>% filter(GINI_CLUST == FALSE) %>% select(fips, hier_rr = CLU_RR)
-
-# check if there are any duplicated counties
-cat("SaTScan Hierarchical clusters include",
-    length(satscan_rpr_hier$fips),
-    "records with",
-    length(unique(satscan_rpr_hier$fips)),
-    "unique county values\n")
-
-cat("SaTScan GINI-optimized clusters include",
-    length(satscan_rpr_gini$fips),
-    "records with",
-    length(unique(satscan_rpr_gini$fips)),
-    "unique county values")
-
-acs_covid <- acs_covid[, 1:which(colnames(acs_covid) == "ss_clusID")] %>%
-  left_join(satscan_rpr_gini, by = "fips") %>%
-  left_join(satscan_rpr_hier, by = "fips")
-
-#rm(satscan_rpr_gis_t, satscan_rpr_gini, satscan_rpr_hier)
+# select GINI results and join to all counties
+acs_covid <- satscan_rpr_gis_t |> 
+  filter(GINI_CLUST == TRUE) |> 
+  select(fips, ssginiid = CLUSTER, ssginirr = CLU_RR) |> 
+  safe_left_join(acs_covid, "fips")
 ```
 
-It was necessary to divide the Hierarchical clusters from the GINI clusters to avoid duplicates and geographic overlap.
+Next, calculate cluster risk classification for Hierarchical and GINI clusters.
+
+```{r satscan-clusters-to-counties, message = F}
+acs_covid <- acs_covid |> 
+  mutate(
+    sshierrrc = ifelse(is.na(sshierrr), 1, cut(sshierrr, breaks, labels = FALSE)),
+    sshierrrcst = as.integer(statefp) * 10 + sshierrrc,
+    ssginirrc = ifelse(is.na(ssginirr), 1, cut(ssginirr, breaks, labels = FALSE)),
+    ssginirrcst = as.integer(statefp) * 10 + ssginirrc
+  )
+```
+
+Calculate boolean presence/absence of each type of cluster
+
+```{r presence-cluster}
+acs_covid <- acs_covid |> mutate(sscent = !is.na(sscentrr),
+                                ssgini = !is.na(ssginirr),
+                                sshier = !is.na(sshierrr),
+                                se50 = !is.na(se50rr))
+```
+
+We need a function for comparing the presence and absence of two versions of clusters
+
+```{r pairwise-comparison map}
+bivariate_compare_map <- function(data, var1, lab1, var2, lab2) {
+  fill_values = c("tomato", "wheat", "thistle3")
+  labels <- c(
+    str_c(lab1, " only"),
+    str_c(lab1, " and ", lab2),
+    str_c(lab2, " only")
+  )
+  clusters <- data %>%
+    mutate(
+      xcluster = case_when(
+        .data[[var1]] & !.data[[var2]] ~ labels[1],
+        .data[[var1]] & .data[[var2]] ~ labels[2],
+        !.data[[var1]] & .data[[var2]] ~ labels[3],
+        .default = NA_character_
+      )
+    ) %>%
+    filter(!is.na(xcluster)) %>%
+    mutate(
+      xcluster = factor(xcluster, levels = labels)
+    )
+    # ) %>%
+    # group_by(xcluster) %>%
+    # mutate(xn = n()) %>%
+    # ungroup() %>%
+    # mutate(xcluster = paste0(xcluster, " (", xn, " counties)"))
+
+  tm_shape(state) +
+    tm_fill("gray98") +
+    tm_shape(clusters) +
+    tm_polygons(
+      fill = "xcluster",
+      fill.scale = tm_scale(values = fill_values),
+      fill.legend = tm_legend(title = str_c(lab1, " and ", lab2, " Clusters")),
+      col = "white",
+      lwd = 0.2,
+      col_alpha = 0.3
+    ) +
+    tm_shape(state) +
+    tm_borders("grey", lwd = 0.5) +
+    tm_layout(
+      legend.position = c("left", "bottom"),
+      legend.title.size = 0.7,
+      legend.text.size = 0.5
+    )
+}
+```
+
 
 Compare the SaTScan Hierarchical clusters to the SpatialEpi clusters.
 
-```{r hierarchical-cluster-comparison-map, message = F}
-hier_clusters <- acs_covid %>%
-  mutate(xcluster = case_when(
-    !is.na(hier_rr) & is.na(isCluster) ~ "SaTScan Hierarchical only",
-    !is.na(hier_rr) & !is.na(isCluster) ~ "Both SaTScan and SpatialEpi",
-    is.na(hier_rr) & !is.na(isCluster) ~ "SpatialEpi only",
-    .default = NA
-  )) %>%
-  filter(!is.na(xcluster)) %>%
-  group_by(xcluster) %>%
-  mutate(xn = n()) %>%
-  ungroup() %>%
-  mutate(xcluster = paste0(xcluster, " (", xn, " counties)"))
-
-tm_spatialepi_hier <-
-  tm_shape(state) +
-  tm_fill("gray98") +
-  tm_shape(hier_clusters |> filter(!is.na(xcluster))) +
-  tm_polygons(
-    fill = "xcluster",
-    fill.scale = tm_scale(
-      values = c("wheat", "tomato", "thistle3")),
-    fill.legend = tm_legend(title = "SaTScan Hierarchical and SpatialEpi Clusters"),
-    col = "white",
-    lwd = 0.2,
-    col_alpha = 0.3
-  ) +
-  tm_shape(state) +
-  tm_borders("grey", lwd = 0.5) +
-  tm_layout(
-    legend.position = c("left", "bottom"),
-    legend.title.size = 0.8,
-    legend.text.size = 0.5
-  )
-
-tm_spatialepi_hier
-
-```
-
-The two methods only agree on the definition of the largest clusters in distant regions.
-Thereafter, SpatialEpi detects many secondary clusters in the vicinity of the largest ones, while SaTScan detects seven isolated and low-probability counties.
-
-Compare the SaTScan GINI Optimized clusters to the SpatialEpi clusters.
-
-```{r gini-cluster-comparison-map, message = F}
-gini_clusters <- acs_covid %>%
-  mutate(xcluster = case_when(
-    !is.na(gini_rr) & is.na(isCluster) ~ "SaTScan GINI optimized only",
-    !is.na(gini_rr) & !is.na(isCluster) ~ "Both SaTScan and SpatialEpi",
-    is.na(gini_rr) & !is.na(isCluster) ~ "SpatialEpi only",
-    .default = NA
-  )) %>%
-  filter(!is.na(xcluster)) %>%
-  group_by(xcluster) %>%
-  mutate(xn = n()) %>%
-  ungroup() %>%
-  mutate(xcluster = paste0(xcluster, " (", xn, " counties)"))
-
-tm_spatialepi_gini <-
-  tm_shape(state) +
-  tm_fill("gray98") +
-  tm_shape(gini_clusters |> filter(!is.na(xcluster))) +
-  tm_polygons(
-    fill = "xcluster",
-    fill.scale = tm_scale(
-      values = c("wheat", "tomato", "thistle3")),
-    fill.legend = tm_legend(title = "SaTScan GINI Optimized and SpatialEpi Clusters"),
-    col = "white",
-    lwd = 0.2,
-    col_alpha = 0.3
-  ) +
-  tm_shape(state) +
-  tm_borders("grey", lwd = 0.5) +
-  tm_layout(
-    legend.position = c("left", "bottom"),
-    legend.title.size = 0.8,
-    legend.text.size = 0.5
-  )
-
-tm_spatialepi_gini
-
-rm(gini_clusters)
+```{r pairwise-comparison map}
+acs_covid |> bivariate_compare_map('sshier', 'SaTScan Hierarchial', 'se50','SpatialEpi')
 ```
 
 There is more agreement overall between SpatialEpi and SaTScan GINI Optimized clusters.
@@ -1342,18 +1408,11 @@ Keeping in mind that the final analysis uses a classification of cluster relativ
 We can check by calculating cluster relative risk classes based on the SaTScan GINI clusters, and cross-tabulating with the SpatialEpi risk classes.
 
 ```{r compare-spatialepi-satscan}
-acs_covid <- acs_covid %>%
-  mutate(
-    gini_class = ifelse(is.na(gini_rr), 1, cut(gini_rr, breaks, labels = FALSE)),
-    gini_clusID = as.integer(statefp) * 10 + gini_class
-  )
-
-table(acs_covid$cluster_class, acs_covid$gini_class) %>%
+table(acs_covid$se50rrc, acs_covid$ssginirrc) %>%
   kable(row.names = TRUE, caption = "COVID-19 Risk Class by County", align = "c") %>%
   column_spec(2:7, width = "3em") %>%
   column_spec(1, bold = TRUE) %>%
-  row_spec(2, bold = TRUE) %>%
-  add_header_above(c("SpatialEpi" = 1, "SatScan" = 6)) %>%
+  add_header_above(c("SpatialEpi 50%" = 1, "SatScan GINI" = 6)) %>%
   kable_styling(full_width = FALSE, row_label_position = "c")
 ```
 
@@ -1361,6 +1420,72 @@ Indeed, SpatialEpi has identified more than 300 counties with above normal risk 
 Meanwhile, SaTScan identified 78 counties with above normal risk that were not identified by SpatialEpi.
 
 The maps and crosstabulation above indicate that there are important differences between the SaTScan and SpatialEpi computational environments for calculating secondary clusters.
+
+### Apply GINI-optimized maximum to SpatialEpi
+
+**Unplanned Deviation for Reanalysis**: We may be able to more closely reproduce SatScan GINI coefficient clusters with SpatialEpi if we limit the maximum cluster size the the GINI-optimized level identified by SatScan.
+Examining the SatScan results, we find the total estimated population to be `325009505`, and the maximum population of any cluster to be `12986739`, yielding a ratio of `0.039958`.
+Rounding up, we could use a maximum cluster size of `0.04`, which is equivalent to `4%` of the total population.
+
+```{r SpatialEpi-Kulldorff, eval = FALSE, fig.width=4, fig.height=4}
+# Kulldorff spatial scan statistic
+covid_kulldorff_4pct <- kulldorff_function(covid_table, 0.04)
+
+# save results in a file appended with the current date
+saveRDS(covid_kulldorff_4pct,
+  file = here("data", "derived", "public", paste0("covid_kulldorff_4pct", Sys.Date(), ".RDS"))
+)
+```
+
+Load SpatialEpi results with maximum population of 4%.
+
+```{r read 4pct}
+covid_kulldorff_4pct <- readRDS(here("data", "derived", "public", "covid_kulldorff_4pct2025-12-10.RDS"))
+```
+
+Tidy a dataframe version of the results and join to the main results.
+
+```{r tidy 4pct}
+acs_covid <- covid_kulldorff_4pct |> 
+  kulldorff_broom(covid_table) |> 
+  select(fips, se04id = clusterID) |> 
+  safe_left_join(acs_covid, "fips") |> 
+  group_by(se04id) |> 
+  mutate(
+    se04rr = ifelse(is.na(se04id), NA,
+      (sum(cases) / sum(pop)) / ((total_cases - sum(cases)) / (total_pop - sum(pop)))
+    )
+  ) |> 
+  ungroup() |> 
+  mutate(
+    se04rrc = ifelse(is.na(se04rr), 1, cut(se04rr, breaks, labels = FALSE)),
+    se04rrcst = as.integer(statefp) * 10 + se04rrc,
+    se04 = !is.na(se04rr)
+  )
+```
+
+Compare SpatialEpi 4% maximum population with SaTScan GINI-Optimized Clusters.
+
+```{r gini-comparison-map, message = F}
+acs_covid |> bivariate_compare_map('ssgini','SaTScan GINI','se04','SpatialEpi 4%')
+```
+
+Compare SaTScan Hierarchical with SatScan GINI-Optimized Clusters.
+
+```{r gini-comparison-map, message = F}
+acs_covid |> bivariate_compare_map('ssgini','SaTScan GINI','sshier','SaTScan Hierarchical')
+```
+
+Compare SpatialEpi 50% and 4% clusters.
+
+```{r gini-comparison-map, message = F}
+acs_covid |> bivariate_compare_map('se50','SpatialEpi 50%','se04','Spatial Epi 4%')
+```
+
+Even when the maximum cluster size has been constrained-- by the GINI optimization algorithm in SaTScan and by applying the same threshold manually in SpatialEpi-- the results are still divergent.
+While we could attempt to achieve more similar results from the SaTScan side by constraining the maximum *p*-value as in SpatialEpi, we would still need to content with other fundamental differences in the sequencing and filtering of secondary clusters that cannot be controlled without revising and recompiling the software programs.
+
+### Kulldorff Discussion
 
 We summarize our understanding of the computational differences for default settings below, based on close examination of our software outputs, technical documentation for SaTScan, and the documentation and code repository for SpatialEpi.
 
@@ -1423,6 +1548,27 @@ In sum, there are three construct validity issues with the original study's COVI
 1.  Two sets of overlapping secondary clusters are included in the SaTScan output: hierarchical clusters and clusters optimized by GINI coefficient.
 2.  Only the 96 counties at the center of a cluster are considered in the risk classification.
 3.  The geographic patterns and cluster relative risk scores of secondary clusters are limited to circles or ellipses and are apparently sensitive to both the geographic shape and situation of high-risk clusters and to subjective decisions in parameters and algorithms.
+
+### Save derived output
+
+Variables for spatial clustering results are recorded according to the following table.
+
+Software | Variation | Boolean (is cluster or not?) | Kulldorff Cluster ID | Cluster Relative Risk | Class | GEE Cluster ID
+--- | --- | --- | --- | --- | --- | ---
+SpatialEpi | 50% threshold | se50 | se50cid | se50rr | se50rrc | se50rrcst
+SpatialEpi | 4% threshold | se04 | se04id | se04rr | se04rrc | se04rrcst
+SatScan | All cluster centers | sscent | n/a (all unique clusters) | sscentrr | sscentrrc | sscentrrcst
+SatScan | Hierarchical Clusters | sshier | sshierid | sshierrr | sshierrrc | sshierrrcst
+SatScan | GINI clusters | ssgini | ssginiid | ssginirr | ssginirrc | ssginirrcst
+
+
+```{r save-derived, eval = FALSE}
+acs_covid |> st_write(here("data", "derived", "public", "acs_covid_clusters.gpkg"))
+```
+## Test linear models for spatial autocorrelation
+
+**Unplanned deviation**: Before using GEE models, we should calculate linear models for each of the five models, map the residuals, and test for spatial autocorrelation.
+
 
 ## Preprocess data for GEE modelling
 
@@ -1650,7 +1796,7 @@ Calculate GEE models with: - Clustering: SaTScan cluster centers & State ID - De
 ```{r gee-original-clusters-original-incidence}
 gee_or_clus_ordep <- gee_data %>% onegee(
                     dep_var = "or_incidence",
-                    id = gee_data$ss_clusID,
+                    id = gee_data$sscentrrcst,
                     term_names = table2$term)
 gee_or_clus_ordep$coefficients %>%
   kable(caption = "Original Cluster IDs and Original COVID-19 Incidence",
@@ -1665,7 +1811,7 @@ Calculate GEE models with: - Clustering: SaTScan cluster centers & State ID - De
 ```{r gee-original-clusters-reproduced-incidence}
 gee_or_clus_rpdep <- onegee(gee_data,
                     dep_var = "covid_rate",
-                    id = gee_data$ss_clusID,
+                    id = gee_data$sscentrrcst,
                     term_names = table2$term)
 gee_or_clus_rpdep$coefficients %>%
   kable(caption = "Original Cluster IDs and Reproduced COVID-19 Incidence",
@@ -1680,7 +1826,7 @@ Calculate GEE models with: - Clustering: Reproduced SaTScan GEE clusters & State
 ```{r gee-gini-clusters-reproduced-incidence}
 gee_gini_clus_rpdep <- onegee(gee_data,
                     dep_var = "covid_rate",
-                    id = gee_data$gini_clusID,
+                    id = gee_data$ssginirrcst,
                     term_names = table2$term)
 gee_gini_clus_rpdep$coefficients %>%
   kable(caption = "Reproduced SaTScan GINI Cluster IDs and Reproduced COVID-19 Incidence",
@@ -1695,7 +1841,7 @@ Calculate GEE models with: - Clustering: Reproduced SpatialEpi clusters & State 
 ```{r gee-spatialepi-clusters-reproduced-incidence}
 gee_rp_clus_rpdep <- onegee(gee_data,
                     dep_var = "covid_rate",
-                    id = gee_data$rp_clusID,
+                    id = gee_data$se50rrcst,
                     term_names = table2$term)
 gee_rp_clus_rpdep$coefficients %>%
   kable(caption = "Reproduced SpatialEpi Cluster IDs and Reproduced COVID-19 Incidence",
@@ -1772,7 +1918,7 @@ Counter-intuitively, the two coefficients for elderly people with disability wer
 ```{r residuals}
 # create data frame with residuals
 gee_resid <- data.frame(
-  select(gee_or_clus_rpdep$models[[1]]$data, covid_rate, ss_clusID),
+  select(gee_or_clus_rpdep$models[[1]]$data, covid_rate, sscentrrcst),
   data.frame(fitvals = gee_or_clus_rpdep$models[[1]]$fitted.values),
   data.frame(residual = gee_or_clus_rpdep$models[[1]]$residual),
   data.frame(working = residuals(gee_or_clus_rpdep$models[[1]], type = "working")),
@@ -1823,20 +1969,20 @@ Calculate variance, covariance, correlation, and weights
 ```{r weights}
 # calculate k number of observations per cluster
 gee_resid <- gee_resid %>% 
-  group_by(ss_clusID) %>% 
+  group_by(sscentrrcst) %>% 
   mutate(k = n()) %>% 
   ungroup()
 
-grps <- gee_resid %>% st_drop_geometry() %>% select(ss_clusID, residual = residual)
+grps <- gee_resid %>% st_drop_geometry() %>% select(sscentrrcst, residual = residual)
 
 # create mask matrix
-n <- length(gee_resid$ss_clusID)
+n <- length(gee_resid$sscentrrcst)
 # m <- matrix(nrow = n, ncol = n)
 
 # this is very inefficient, but this makes matrix of equal clusID's:
 # just need to omit the bottom-left of matrix and the diagonal
 # selecting for rows 80-90 to help w debugging
-m <- (outer(grps$ss_clusID, grps$ss_clusID, "==") &
+m <- (outer(grps$sscentrrcst, grps$sscentrrcst, "==") &
   outer(rownames(grps), rownames(grps), "<"))
 
 # calculate denominators
