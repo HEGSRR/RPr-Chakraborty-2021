@@ -10,7 +10,7 @@ knit: (function(inputFile, encoding) {
   rmarkdown::render(inputFile, encoding = encoding, output_dir = "../../docs") })
 ---
 
-Version 2.0 \| First Created July 7, 2021 \| Updated December 8, 2025
+Version 2.1 \| First Created July 7, 2021 \| Updated January 13, 2026
 
 # Abstract
 
@@ -822,7 +822,7 @@ kulldorff_function <- function(kulldorff_table, maxPop){
 
 Calculate Kulldorff spatial scan statistics with a maximum cluster size of `50%`.
 
-```{r SpatialEpi-Kulldorff, eval = FALSE, fig.width=4, fig.height=4}
+```{r SpatialEpi-Kulldorff-50, eval = FALSE, fig.width=4, fig.height=4}
 # Kulldorff spatial scan statistic
 covid_kulldorff <- kulldorff_function(covid_table, 0.5)
 
@@ -832,8 +832,11 @@ saveRDS(covid_kulldorff,
 )
 ```
 
+By running the spatial scan multiple times with the same data and parameters, we can test whether the results are sensitive to the Monte Carlo simulation.
 Load pre-calculated Kulldorff spatial scan results.
 Alternatively, skip or modify this code block to use your own version of the SpatialEpi Kulldorff results.
+Each of these three sets of results was generated using the same input data and parameters, having a maximum cluster size of 50% of the population.
+
 
 ```{r load-Kulldorff}
 # load pre-calculated Kulldorff results
@@ -903,7 +906,7 @@ kulldorff_broom <- function(kulldorff_result, kulldorff_table) {
 }
 ```
 
-**Unplanned Deviation for Reproduction**: Monte Carlo simluation may imply some randomness to the results.
+**Unplanned Deviation for Reproduction**: Monte Carlo simulation may imply some randomness to the results.
 Create cleaned dataframe of three iterations of Kulldorff cluster results.
 Combine three different result sets into one dataframe for comparison.
 
@@ -922,7 +925,7 @@ clusters_comb$rp_clusIDcount <- rowSums(!is.na(select(clusters_comb, starts_with
 
 Compare the county-wise clustering results by viewing all counties with variable results.
 
-```{r assign-cluster-IDs, message = FALSE}
+```{r display-inconsistencies, message = FALSE}
 clusters_comb |> filter(rp_clusIDcount < 3)
 ```
 
@@ -1343,9 +1346,9 @@ acs_covid <- acs_covid |> mutate(sscent = !is.na(sscentrr),
                                 se50 = !is.na(se50rr))
 ```
 
-We need a function for comparing the presence and absence of two versions of clusters
+Define a function for comparing the presence and absence of two versions of clusters
 
-```{r pairwise-comparison map}
+```{r pairwise-comparison-map}
 bivariate_compare_map <- function(data, var1, lab1, var2, lab2) {
   fill_values = c("tomato", "wheat", "thistle3")
   labels <- c(
@@ -1396,7 +1399,7 @@ bivariate_compare_map <- function(data, var1, lab1, var2, lab2) {
 
 Compare the SaTScan Hierarchical clusters to the SpatialEpi clusters.
 
-```{r pairwise-comparison map}
+```{r compare-satscan-spatialepi}
 acs_covid |> bivariate_compare_map('sshier', 'SaTScan Hierarchial', 'se50','SpatialEpi')
 ```
 
@@ -1427,7 +1430,7 @@ The maps and crosstabulation above indicate that there are important differences
 Examining the SatScan results, we find the total estimated population to be `325009505`, and the maximum population of any cluster to be `12986739`, yielding a ratio of `0.039958`.
 Rounding up, we could use a maximum cluster size of `0.04`, which is equivalent to `4%` of the total population.
 
-```{r SpatialEpi-Kulldorff, eval = FALSE, fig.width=4, fig.height=4}
+```{r SpatialEpi-Kulldorff-4, eval = FALSE, fig.width=4, fig.height=4}
 # Kulldorff spatial scan statistic
 covid_kulldorff_4pct <- kulldorff_function(covid_table, 0.04)
 
@@ -1466,19 +1469,19 @@ acs_covid <- covid_kulldorff_4pct |>
 
 Compare SpatialEpi 4% maximum population with SaTScan GINI-Optimized Clusters.
 
-```{r gini-comparison-map, message = F}
+```{r gini-se4-map, message = F}
 acs_covid |> bivariate_compare_map('ssgini','SaTScan GINI','se04','SpatialEpi 4%')
 ```
 
 Compare SaTScan Hierarchical with SatScan GINI-Optimized Clusters.
 
-```{r gini-comparison-map, message = F}
+```{r gini-hier-comparison-map, message = F}
 acs_covid |> bivariate_compare_map('ssgini','SaTScan GINI','sshier','SaTScan Hierarchical')
 ```
 
 Compare SpatialEpi 50% and 4% clusters.
 
-```{r gini-comparison-map, message = F}
+```{r se-50-4-comparison-map, message = F}
 acs_covid |> bivariate_compare_map('se50','SpatialEpi 50%','se04','Spatial Epi 4%')
 ```
 
@@ -1804,7 +1807,7 @@ gee_or_clus_ordep$coefficients %>%
   kable_styling()
 ```
 
-### Original Clusters and Corrected COVID-19 Rate
+### Original Cluster Centers and Corrected COVID-19 Rate
 
 Calculate GEE models with: - Clustering: SaTScan cluster centers & State ID - Dependent variable: reproduced COVID-19 incidence (corrected errors).
 
@@ -1819,9 +1822,25 @@ gee_or_clus_rpdep$coefficients %>%
   kable_styling()
 ```
 
+### Hierarchical Clusters and Fixed COVID-19 Rate
+
+Calculate GEE models with: - Clustering: Reproduced SaTScan Hierarchical clusters & State ID - Dependent variable: reproduced COVID-19 incidence (fixed errors).
+
+```{r gee-hier-clusters-reproduced-incidence}
+gee_hier_clus_rpdep <- onegee(gee_data,
+                    dep_var = "covid_rate",
+                    id = gee_data$sshierrrcst,
+                    term_names = table2$term)
+gee_hier_clus_rpdep$coefficients %>%
+  kable(caption = "Reproduced SaTScan GINI Cluster IDs and Reproduced COVID-19 Incidence",
+        align = "c") %>%
+  kable_styling()
+```
+
+
 ### GINI Clusters and Fixed COVID-19 Rate
 
-Calculate GEE models with: - Clustering: Reproduced SaTScan GEE clusters & State ID - Dependent variable: reproduced COVID-19 incidence (fixed errors).
+Calculate GEE models with: - Clustering: Reproduced SaTScan GINI clusters & State ID - Dependent variable: reproduced COVID-19 incidence (fixed errors).
 
 ```{r gee-gini-clusters-reproduced-incidence}
 gee_gini_clus_rpdep <- onegee(gee_data,
@@ -1836,9 +1855,9 @@ gee_gini_clus_rpdep$coefficients %>%
 
 ### SpatialEpi Clusters and Fixed COVID-19 Rate
 
-Calculate GEE models with: - Clustering: Reproduced SpatialEpi clusters & State ID - Dependent variable: reproduced COVID-19 incidence (fixed errors).
+Calculate GEE models with: - Clustering: Reproduced SpatialEpi 50% clusters & State ID - Dependent variable: reproduced COVID-19 incidence (fixed errors).
 
-```{r gee-spatialepi-clusters-reproduced-incidence}
+```{r gee-spatialepi50-clusters-reproduced-incidence}
 gee_rp_clus_rpdep <- onegee(gee_data,
                     dep_var = "covid_rate",
                     id = gee_data$se50rrcst,
@@ -1849,11 +1868,26 @@ gee_rp_clus_rpdep$coefficients %>%
   kable_styling()
 ```
 
+### SpatialEpi 4% Clusters and Fixed COVID-19 Rate
+
+Calculate GEE models with: - Clustering: Reproduced SpatialEpi 4% clusters & State ID - Dependent variable: reproduced COVID-19 incidence (fixed errors).
+
+```{r gee-spatialepi4-clusters-reproduced-incidence}
+gee_rp4_clus_rpdep <- onegee(gee_data,
+                    dep_var = "covid_rate",
+                    id = gee_data$se04rrcst,
+                    term_names = table2$term)
+gee_rp4_clus_rpdep$coefficients %>%
+  kable(caption = "Reproduced SpatialEpi Cluster IDs and Reproduced COVID-19 Incidence",
+        align = "c") %>%
+  kable_styling()
+```
+
 ### Compare GEE results
 
-**Unplanned deviation for reanalysis**: Generate dot-and-whisker plot of coefficients for each of the model variations for efficient visual comparison of coefficients across each model.
+**Unplanned deviation for reproduction**: Generate dot-and-whisker plot of coefficients for each of the reproduction model variations for efficient visual comparison of coefficients across each model.
 
-```{r dotwhisker-comparison, message=FALSE}
+```{r dotwhisker-reproduction, message=FALSE}
 # create summary data frame compatible with dotwhisker package functions
 # starting with original study results
 t2whisker <- table2 %>%
@@ -1864,12 +1898,8 @@ geewhisker <- bind_rows(
   mutate(gee_or_clus_ordep$coefficients,
          model = "Switch to R Geepack"),
   mutate(gee_or_clus_rpdep$coefficients,
-         model = "Correct COVID Incidence"),
-  mutate(gee_gini_clus_rpdep$coefficients,
-         model = "SaTScan GINI-Optimized Clusters"),
-  mutate(gee_rp_clus_rpdep$coefficients,
-         model = "SpatialEpi Clusters")) %>%
-  select(1:5, "model")
+         model = "Correct COVID Incidence")
+)
 
 geewhisker <- bind_rows(t2whisker, geewhisker) %>%
   filter(!grepl("intercept", term))
@@ -1883,7 +1913,7 @@ geewhisker_fig <- geewhisker %>%
            linetype = 2
        )) +
     scale_colour_brewer(type = "div",
-                        palette = "RdYlBu",
+                        palette = "Set1",
                         name = "Model Variations") +
     theme_bw() +
     xlab("Coefficient")
@@ -1893,20 +1923,59 @@ geewhisker_fig
 rm(t2whisker)
 ```
 
-The figure above illustrates five model variations, starting with the results published in the original study.
-The next two models make incremental adjustments to the research design and are most compatible with the goals of a reproduction study.
+The figure above illustrates three model variations, starting with the results published in the original study.
+The next two models make incremental adjustments to the research design in attempts to reproduce the results.
+First, we switch computational environments to Geepack in R, and secondly we correct the translated dependent data in COVID-19 incidence for 13 counties.
+The change in software environment, and presumably the computational approach to GEE, resulted in more substantial differences than the data error.
 
-The greatest differences were produced using the same input data in different computational environments, caused by switching the computational environment from SPSS to geepack in R.
-This switch decreased the magnitude of most coefficients, reducing the positive Hispanic coefficient below its original confidence interval and increasing the negative Above poverty level and Male coefficients to the limits of their original confidence intervals.
-
-Compared to the change in computational environment, fixing the error in the COVID-19 incidence rate of 13 counties had very little effect on coefficient estimates.
-
-Our more significant adjustments could be considered reanalyses, in which we re-conceptualized COVID-19 clusters first as all counties included in SaTScan GINI-Optimized clusters, and second as all counties included in SpatialEpi clusters.
-These two changes further decreased the magnitude of most coefficients as they likely more effectively fulfilled the purpose of controlling for spatial dependence.
-The shifts were most signficant for the Ethnicity model, in which the Hispanic and Non-Hispanic white coefficients lost magnitude beyond the original confidence interval and the Hispanic coefficient is no longer significant.
+The shifts were most significant for the Ethnicity model, in which the Hispanic and Non-Hispanic white coefficients lost magnitude beyond the original confidence interval and the Hispanic coefficient is no longer significant.
 Secondarily, the negative Above poverty level and Male coefficients both increased beyond the range of the original confidence intervals.
 
-Overall, we can see that some coefficients remained significant and robust to changes in computational environment, data errors, and clustering criteria.
+
+**Unplanned deviation for reanalysis**: Generate dot-and-whisker plot of coefficients for each of the spatial scan reanalysis model variations for efficient visual comparison of coefficients across each model.
+
+```{r dotwhisker-reanalysis, message=FALSE}
+geewhisker <- bind_rows(
+  mutate(gee_or_clus_rpdep$coefficients,
+         model = "SaTScan Cluster Centers"),
+  mutate(gee_hier_clus_rpdep$coefficients,
+         model = "SaTScan Hierarchical Clusters"),
+  mutate(gee_gini_clus_rpdep$coefficients,
+         model = "SaTScan GINI-Optimized Clusters"),
+  mutate(gee_rp_clus_rpdep$coefficients,
+         model = "SpatialEpi 50% Clusters"),
+  mutate(gee_rp4_clus_rpdep$coefficients,
+         model = "SpatialEpi 4% Clusters")  ) %>%
+  select(1:5, "model") %>%
+  filter(!grepl("intercept", term))
+
+# generate create dot whisker plot
+geewhisker_reanalysis_fig <- geewhisker %>%
+  dwplot(dodge_size = 0.6,
+         vline = geom_vline(
+           xintercept = 0,
+           colour = "grey60",
+           linetype = 2
+       )) +
+    scale_colour_brewer(type = "div",
+                        palette = "Set1",
+                        name = "Model Variations") +
+    theme_bw() +
+    xlab("Coefficient")
+
+geewhisker_reanalysis_fig
+
+```
+
+The figure above illustrates six model variations using the same independent and dependent data variables for GEE equations, while reanalyzing using different clustering criteria.
+In the first model, we use the original study's clustering criteria: SaTScan cluster centers of both GINI-optimized and hierarchical clusters.
+In the second, we use the SaTScan hierarchical clusters.
+In the third, we use the SaTScan GINI-optimized clusters.
+In the fourth, we use SpatialEpi with the default maximum cluster size of 50% of the population, roughly equivalent to the hierarchical cluster approach.
+In the fifth, we use SpatialEpi with a maximum cluster size of 4% of the population, which was the threshold identified by GINI optimization in SaTScan in an attempt to replicate the GINI optimization results with SpatialEpi.
+
+
+Overall, we see can from the reproductions and reanalyses that some coefficients remained significant and robust to changes in computational environment, data errors, and clustering criteria.
 Robustly positive coefficients included Black, Native American, Non-Hispanic non-White, Below poverty level, and Female.
 The Asian and Age 5-17 coefficients also remained just above 0.
 All of these categories of people with disabilities would be considered intersectional with factors of vulnerability.
@@ -1914,6 +1983,8 @@ Conversely, some robustly negative coefficients indicate people with disabilitie
 Counter-intuitively, the two coefficients for elderly people with disability were also robustly negative.
 
 ### Interpret GEE Model
+
+Calculate residuals for our reproduction of the race model with the original study's clusters.
 
 ```{r residuals}
 # create data frame with residuals
@@ -1942,6 +2013,8 @@ gee_resid <- data.frame(
 # blog: https://www.datascienceblog.net/post/machine-learning/interpreting_generalized_linear_models
 ```
 
+Map the residuals.
+
 ```{r map-residuals}
 tm_gee_residuals <- tm_shape(gee_resid) +
   tm_polygons(
@@ -1964,7 +2037,7 @@ tm_gee_residuals <- tm_shape(gee_resid) +
 tm_gee_residuals
 ```
 
-Calculate variance, covariance, correlation, and weights
+Calculate variance, covariance, correlation, and weights.
 
 ```{r weights}
 # calculate k number of observations per cluster
