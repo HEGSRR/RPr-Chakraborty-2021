@@ -366,7 +366,10 @@ However, we replace the missing data with zeros, producing results identical to 
 
 ```{r missing data}
 # county with missing data
-filter(acs_covid, is.na(bpov_pct)) %>% st_drop_geometry() %>% kable()
+acs_covid |> filter(is.na(bpov_pct)) |> 
+  st_drop_geometry() |> 
+  t() |> 
+  kable() |> kable_styling()
 ```
 
 Replace the `NA` values with `0`.
@@ -385,12 +388,16 @@ st_write(
   here("data", "derived", "public", "acs_covid.gpkg"),
   layer = "acs_covid"
 )
+
+saveRDS(covid_table, here("data", "derived", "public", "covid_table.RDS"))
 ```
 
 Load prepared data
 
 ```{r eval = FALSE}
 acs_covid <- read_sf(here("data", "derived", "public", "acs_covid.gpkg"))
+covid_table <- readRDS(here("data", "derived", "public", "covid_table.RDS"))
+state <- read_sf(here("data", "derived", "public", "acs.gpkg"), layer = "state")
 ```
 
 ## Map COVID-19 incidence
@@ -1564,10 +1571,20 @@ SatScan | All cluster centers | sscent | n/a (all unique clusters) | sscentrr | 
 SatScan | Hierarchical Clusters | sshier | sshierid | sshierrr | sshierrrc | sshierrrcst
 SatScan | GINI clusters | ssgini | ssginiid | ssginirr | ssginirrc | ssginirrcst
 
+Save output
 
 ```{r save-derived, eval = FALSE}
 acs_covid |> st_write(here("data", "derived", "public", "acs_covid_clusters.gpkg"))
 ```
+
+Load data for GEE models
+
+```{r load-derived, eval = FALSE}
+acs_covid <- st_read(here("data", "derived", "public", "acs_covid_clusters.gpkg"))
+state <- read_sf(here("data", "derived", "public", "acs.gpkg"), layer = "state")
+```
+
+
 ## Test linear models for spatial autocorrelation
 
 **Unplanned deviation**: Before using GEE models, we should calculate linear models for each of the five models, map the residuals, and test for spatial autocorrelation.
@@ -1894,18 +1911,17 @@ t2whisker <- table2 %>%
   mutate(model = "Original Study") %>%
   select(-c(starts_with("row"), "wald_chi_square", "p_stars"))
 
-geewhisker <- bind_rows(
+allgeeresults <- bind_rows(
+  t2whisker,
   mutate(gee_or_clus_ordep$coefficients,
          model = "Switch to R Geepack"),
   mutate(gee_or_clus_rpdep$coefficients,
          model = "Correct COVID Incidence")
 )
 
-geewhisker <- bind_rows(t2whisker, geewhisker) %>%
-  filter(!grepl("intercept", term))
-
 # generate create dot whisker plot
-geewhisker_fig <- geewhisker %>%
+geewhisker_fig <- allgeeresults %>%
+  filter(!grepl("intercept", term)) %>%
   dwplot(dodge_size = 0.6,
          vline = geom_vline(
            xintercept = 0,
@@ -1919,6 +1935,8 @@ geewhisker_fig <- geewhisker %>%
     xlab("Coefficient")
 
 geewhisker_fig
+
+# ggsave(here("results", "figures", "dotwhisker_reproduction.svg"), plot = geewhisker_fig)
 
 rm(t2whisker)
 ```
@@ -1935,7 +1953,7 @@ Secondarily, the negative Above poverty level and Male coefficients both increas
 **Unplanned deviation for reanalysis**: Generate dot-and-whisker plot of coefficients for each of the spatial scan reanalysis model variations for efficient visual comparison of coefficients across each model.
 
 ```{r dotwhisker-reanalysis, message=FALSE}
-geewhisker <- bind_rows(
+geereanalysisresults <- bind_rows(
   mutate(gee_or_clus_rpdep$coefficients,
          model = "SaTScan Cluster Centers"),
   mutate(gee_hier_clus_rpdep$coefficients,
@@ -1946,11 +1964,11 @@ geewhisker <- bind_rows(
          model = "SpatialEpi 50% Clusters"),
   mutate(gee_rp4_clus_rpdep$coefficients,
          model = "SpatialEpi 4% Clusters")  ) %>%
-  select(1:5, "model") %>%
-  filter(!grepl("intercept", term))
+  select(1:5, "model") 
 
 # generate create dot whisker plot
-geewhisker_reanalysis_fig <- geewhisker %>%
+geewhisker_reanalysis_fig <- geereanalysisresults %>%
+  filter(!grepl("intercept", term)) %>%
   dwplot(dodge_size = 0.6,
          vline = geom_vline(
            xintercept = 0,
@@ -1963,8 +1981,9 @@ geewhisker_reanalysis_fig <- geewhisker %>%
     theme_bw() +
     xlab("Coefficient")
 
-geewhisker_reanalysis_fig
+# ggsave(here("results", "figures", "dotwhisker_reanalysis.svg"), plot = geewhisker_reanalysis_fig)
 
+geewhisker_reanalysis_fig
 ```
 
 The figure above illustrates six model variations using the same independent and dependent data variables for GEE equations, while reanalyzing using different clustering criteria.
@@ -1981,6 +2000,13 @@ The Asian and Age 5-17 coefficients also remained just above 0.
 All of these categories of people with disabilities would be considered intersectional with factors of vulnerability.
 Conversely, some robustly negative coefficients indicate people with disabilities intersecting with non-vulnerable identities, such as white, Non-Hispanic White, Above poverty level, and Male.
 Counter-intuitively, the two coefficients for elderly people with disability were also robustly negative.
+
+Save GEE Results
+
+```{r save-gee-results, eval=FALSE}
+allgeeresults <- allgeeresults |> bind_rows(geereanalysisresults) |> select(1:6)
+allgeeresults |> write_csv(here("data", "derived", "public", "gee_results.csv"))
+```
 
 ### Interpret GEE Model
 
