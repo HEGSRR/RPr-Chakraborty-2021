@@ -1,0 +1,177 @@
+term,estimate,std.error,conf.low,conf.high,model
+Race model intercept,7.106,0.083,6.997,7.322,Original Study
+White,-0.203,0.02,-0.242,-0.164,Original Study
+Black,0.111,0.016,0.079,0.143,Original Study
+Native American,0.051,0.009,0.033,0.069,Original Study
+Asian,0.08,0.018,0.046,0.115,Original Study
+Other race,0.077,0.017,0.044,0.115,Original Study
+Ethnicity model intercept,7.186,0.083,7.023,7.348,Original Study
+Non-Hispanic White,-0.237,0.022,-0.28,-0.194,Original Study
+Hispanic,0.119,0.031,0.058,0.18,Original Study
+Non-Hispanic non-White,0.118,0.016,0.086,0.149,Original Study
+Poverty model intercept,7.183,0.072,7.043,7.324,Original Study
+Below poverty level,0.148,0.022,0.105,0.19,Original Study
+Above poverty level,-0.267,0.023,-0.312,-0.222,Original Study
+Age model intercept,7.242,0.076,7.093,7.391,Original Study
+Age 5-17,0.047,0.016,0.016,0.078,Original Study
+Age 18-34,0.038,0.022,-0.005,0.081,Original Study
+Age 35-64,-0.026,0.023,-0.071,0.019,Original Study
+Age 65-74,-0.089,0.021,-0.131,-0.047,Original Study
+Age 75 or more,-0.108,0.02,-0.148,-0.069,Original Study
+Biological sex model intercept,7.223,0.072,7.081,7.365,Original Study
+Male,-0.298,0.028,-0.353,-0.243,Original Study
+Female,0.153,0.029,0.097,0.209,Original Study
+Race model intercept,6.757,0.02,6.718,6.796,Switch to R Geepack
+White,-0.201,0.026,-0.251,-0.15,Switch to R Geepack
+Black,0.281,0.02,0.242,0.321,Switch to R Geepack
+Native American,0.019,0.023,-0.025,0.064,Switch to R Geepack
+Asian,0.064,0.024,0.016,0.112,Switch to R Geepack
+Other race,0.112,0.019,0.076,0.149,Switch to R Geepack
+Ethnicity model intercept,6.742,0.02,6.704,6.78,Switch to R Geepack
+Non-Hispanic White,-0.226,0.026,-0.277,-0.175,Switch to R Geepack
+Hispanic,0.137,0.017,0.105,0.17,Switch to R Geepack
+Non-Hispanic non-White,0.278,0.019,0.241,0.315,Switch to R Geepack
+Poverty model intercept,6.816,0.021,6.774,6.858,Switch to R Geepack
+Below poverty level,0.24,0.027,0.186,0.293,Switch to R Geepack
+Above poverty level,-0.303,0.03,-0.362,-0.245,Switch to R Geepack
+Age model intercept,6.82,0.021,6.779,6.862,Switch to R Geepack
+Age 5-17,0.069,0.028,0.015,0.123,Switch to R Geepack
+Age 18-34,0.029,0.034,-0.038,0.097,Switch to R Geepack
+Age 35-64,0.015,0.043,-0.069,0.099,Switch to R Geepack
+Age 65-74,-0.044,0.042,-0.126,0.039,Switch to R Geepack
+Age 75 or more,-0.169,0.029,-0.227,-0.112,Switch to R Geepack
+Biological sex model intercept,6.814,0.021,6.772,6.855,Switch to R Geepack
+Male,-0.402,0.042,-0.484,-0.319,Switch to R Geepack
+Female,0.298,0.044,0.212,0.385,Switch to R Geepack
+Race model intercept,6.755,0.02,6.716,6.794,Correct COVID Incidence
+White,-0.213,0.024,-0.261,-0.165,Correct COVID Incidence
+Black,0.284,0.02,0.244,0.325,Correct COVID Incidence
+Native American,0.016,0.023,-0.029,0.062,Correct COVID Incidence
+Asian,0.055,0.028,0.001,0.11,Correct COVID Incidence
+Other race,0.109,0.019,0.073,0.146,Correct COVID Incidence
+Ethnicity model intercept,6.74,0.02,6.702,6.779,Correct COVID Incidence
+Non-Hispanic White,-0.238,0.024,-0.285,-0.191,Correct COVID Incidence
+Hispanic,0.132,0.016,0.1,0.164,Correct COVID Incidence
+Non-Hispanic non-White,0.281,0.019,0.243,0.318,Correct COVID Incidence
+Poverty model intercept,6.816,0.021,6.774,6.858,Correct COVID Incidence
+Below poverty level,0.241,0.028,0.186,0.295,Correct COVID Incidence
+Above poverty level,-0.311,0.03,-0.37,-0.252,Correct COVID Incidence
+Age model intercept,6.82,0.021,6.779,6.862,Correct COVID Incidence
+Age 5-17,0.074,0.028,0.019,0.13,Correct COVID Incidence
+Age 18-34,0.026,0.035,-0.042,0.095,Correct COVID Incidence
+Age 35-64,0.009,0.043,-0.075,0.092,Correct COVID Incidence
+Age 65-74,-0.041,0.042,-0.124,0.041,Correct COVID Incidence
+Age 75 or more,-0.176,0.029,-0.233,-0.118,Correct COVID Incidence
+Biological sex model intercept,6.815,0.021,6.774,6.856,Correct COVID Incidence
+Male,-0.401,0.042,-0.484,-0.319,Correct COVID Incidence
+Female,0.292,0.044,0.206,0.377,Correct COVID Incidence
+Race model intercept,6.755,0.02,6.716,6.794,SaTScan Cluster Centers
+White,-0.213,0.024,-0.261,-0.165,SaTScan Cluster Centers
+Black,0.284,0.02,0.244,0.325,SaTScan Cluster Centers
+Native American,0.016,0.023,-0.029,0.062,SaTScan Cluster Centers
+Asian,0.055,0.028,0.001,0.11,SaTScan Cluster Centers
+Other race,0.109,0.019,0.073,0.146,SaTScan Cluster Centers
+Ethnicity model intercept,6.74,0.02,6.702,6.779,SaTScan Cluster Centers
+Non-Hispanic White,-0.238,0.024,-0.285,-0.191,SaTScan Cluster Centers
+Hispanic,0.132,0.016,0.1,0.164,SaTScan Cluster Centers
+Non-Hispanic non-White,0.281,0.019,0.243,0.318,SaTScan Cluster Centers
+Poverty model intercept,6.816,0.021,6.774,6.858,SaTScan Cluster Centers
+Below poverty level,0.241,0.028,0.186,0.295,SaTScan Cluster Centers
+Above poverty level,-0.311,0.03,-0.37,-0.252,SaTScan Cluster Centers
+Age model intercept,6.82,0.021,6.779,6.862,SaTScan Cluster Centers
+Age 5-17,0.074,0.028,0.019,0.13,SaTScan Cluster Centers
+Age 18-34,0.026,0.035,-0.042,0.095,SaTScan Cluster Centers
+Age 35-64,0.009,0.043,-0.075,0.092,SaTScan Cluster Centers
+Age 65-74,-0.041,0.042,-0.124,0.041,SaTScan Cluster Centers
+Age 75 or more,-0.176,0.029,-0.233,-0.118,SaTScan Cluster Centers
+Biological sex model intercept,6.815,0.021,6.774,6.856,SaTScan Cluster Centers
+Male,-0.401,0.042,-0.484,-0.319,SaTScan Cluster Centers
+Female,0.292,0.044,0.206,0.377,SaTScan Cluster Centers
+Race model intercept,6.753,0.02,6.714,6.793,SaTScan Hierarchical Clusters
+White,-0.213,0.025,-0.262,-0.164,SaTScan Hierarchical Clusters
+Black,0.282,0.02,0.243,0.321,SaTScan Hierarchical Clusters
+Native American,0.018,0.024,-0.028,0.065,SaTScan Hierarchical Clusters
+Asian,0.058,0.023,0.013,0.104,SaTScan Hierarchical Clusters
+Other race,0.104,0.018,0.069,0.139,SaTScan Hierarchical Clusters
+Ethnicity model intercept,6.741,0.02,6.702,6.78,SaTScan Hierarchical Clusters
+Non-Hispanic White,-0.239,0.024,-0.286,-0.192,SaTScan Hierarchical Clusters
+Hispanic,0.129,0.016,0.098,0.16,SaTScan Hierarchical Clusters
+Non-Hispanic non-White,0.282,0.018,0.246,0.318,SaTScan Hierarchical Clusters
+Poverty model intercept,6.809,0.022,6.765,6.853,SaTScan Hierarchical Clusters
+Below poverty level,0.233,0.026,0.183,0.284,SaTScan Hierarchical Clusters
+Above poverty level,-0.307,0.032,-0.369,-0.245,SaTScan Hierarchical Clusters
+Age model intercept,6.809,0.022,6.767,6.852,SaTScan Hierarchical Clusters
+Age 5-17,0.078,0.028,0.024,0.132,SaTScan Hierarchical Clusters
+Age 18-34,0.026,0.032,-0.037,0.089,SaTScan Hierarchical Clusters
+Age 35-64,0.014,0.037,-0.059,0.088,SaTScan Hierarchical Clusters
+Age 65-74,-0.051,0.037,-0.124,0.023,SaTScan Hierarchical Clusters
+Age 75 or more,-0.175,0.03,-0.233,-0.117,SaTScan Hierarchical Clusters
+Biological sex model intercept,6.808,0.022,6.765,6.85,SaTScan Hierarchical Clusters
+Male,-0.406,0.04,-0.484,-0.327,SaTScan Hierarchical Clusters
+Female,0.29,0.042,0.207,0.373,SaTScan Hierarchical Clusters
+Race model intercept,6.769,0.02,6.73,6.809,SaTScan GINI-Optimized Clusters
+White,-0.21,0.024,-0.258,-0.162,SaTScan GINI-Optimized Clusters
+Black,0.278,0.018,0.242,0.314,SaTScan GINI-Optimized Clusters
+Native American,0.028,0.021,-0.013,0.07,SaTScan GINI-Optimized Clusters
+Asian,0.054,0.021,0.014,0.094,SaTScan GINI-Optimized Clusters
+Other race,0.098,0.017,0.065,0.13,SaTScan GINI-Optimized Clusters
+Ethnicity model intercept,6.753,0.02,6.714,6.793,SaTScan GINI-Optimized Clusters
+Non-Hispanic White,-0.236,0.024,-0.284,-0.189,SaTScan GINI-Optimized Clusters
+Hispanic,0.127,0.016,0.096,0.158,SaTScan GINI-Optimized Clusters
+Non-Hispanic non-White,0.272,0.018,0.237,0.307,SaTScan GINI-Optimized Clusters
+Poverty model intercept,6.833,0.022,6.789,6.876,SaTScan GINI-Optimized Clusters
+Below poverty level,0.243,0.025,0.195,0.292,SaTScan GINI-Optimized Clusters
+Above poverty level,-0.303,0.03,-0.361,-0.244,SaTScan GINI-Optimized Clusters
+Age model intercept,6.84,0.022,6.798,6.882,SaTScan GINI-Optimized Clusters
+Age 5-17,0.071,0.025,0.022,0.12,SaTScan GINI-Optimized Clusters
+Age 18-34,0.023,0.03,-0.036,0.083,SaTScan GINI-Optimized Clusters
+Age 35-64,0.026,0.036,-0.044,0.096,SaTScan GINI-Optimized Clusters
+Age 65-74,-0.04,0.037,-0.113,0.032,SaTScan GINI-Optimized Clusters
+Age 75 or more,-0.179,0.029,-0.235,-0.122,SaTScan GINI-Optimized Clusters
+Biological sex model intercept,6.833,0.021,6.791,6.874,SaTScan GINI-Optimized Clusters
+Male,-0.399,0.042,-0.481,-0.317,SaTScan GINI-Optimized Clusters
+Female,0.297,0.043,0.214,0.381,SaTScan GINI-Optimized Clusters
+Race model intercept,6.755,0.02,6.716,6.795,SpatialEpi 50% Clusters
+White,-0.204,0.024,-0.25,-0.158,SpatialEpi 50% Clusters
+Black,0.265,0.021,0.224,0.305,SpatialEpi 50% Clusters
+Native American,0.02,0.023,-0.024,0.065,SpatialEpi 50% Clusters
+Asian,0.051,0.02,0.012,0.09,SpatialEpi 50% Clusters
+Other race,0.086,0.018,0.05,0.122,SpatialEpi 50% Clusters
+Ethnicity model intercept,6.742,0.02,6.703,6.781,SpatialEpi 50% Clusters
+Non-Hispanic White,-0.23,0.024,-0.276,-0.184,SpatialEpi 50% Clusters
+Hispanic,0.115,0.016,0.083,0.146,SpatialEpi 50% Clusters
+Non-Hispanic non-White,0.267,0.019,0.229,0.304,SpatialEpi 50% Clusters
+Poverty model intercept,6.816,0.021,6.774,6.858,SpatialEpi 50% Clusters
+Below poverty level,0.219,0.029,0.162,0.277,SpatialEpi 50% Clusters
+Above poverty level,-0.285,0.031,-0.346,-0.224,SpatialEpi 50% Clusters
+Age model intercept,6.823,0.022,6.781,6.865,SpatialEpi 50% Clusters
+Age 5-17,0.063,0.023,0.018,0.108,SpatialEpi 50% Clusters
+Age 18-34,0.032,0.035,-0.036,0.101,SpatialEpi 50% Clusters
+Age 35-64,-0.005,0.041,-0.086,0.076,SpatialEpi 50% Clusters
+Age 65-74,-0.025,0.041,-0.105,0.055,SpatialEpi 50% Clusters
+Age 75 or more,-0.16,0.027,-0.214,-0.107,SpatialEpi 50% Clusters
+Biological sex model intercept,6.816,0.021,6.774,6.858,SpatialEpi 50% Clusters
+Male,-0.368,0.039,-0.445,-0.292,SpatialEpi 50% Clusters
+Female,0.266,0.041,0.185,0.347,SpatialEpi 50% Clusters
+Race model intercept,6.763,0.02,6.723,6.802,SpatialEpi 4% Clusters
+White,-0.2,0.024,-0.246,-0.153,SpatialEpi 4% Clusters
+Black,0.266,0.019,0.229,0.303,SpatialEpi 4% Clusters
+Native American,0.021,0.022,-0.022,0.064,SpatialEpi 4% Clusters
+Asian,0.058,0.019,0.02,0.096,SpatialEpi 4% Clusters
+Other race,0.094,0.018,0.059,0.129,SpatialEpi 4% Clusters
+Ethnicity model intercept,6.747,0.02,6.708,6.786,SpatialEpi 4% Clusters
+Non-Hispanic White,-0.226,0.023,-0.272,-0.18,SpatialEpi 4% Clusters
+Hispanic,0.121,0.016,0.09,0.151,SpatialEpi 4% Clusters
+Non-Hispanic non-White,0.26,0.018,0.224,0.296,SpatialEpi 4% Clusters
+Poverty model intercept,6.825,0.021,6.784,6.867,SpatialEpi 4% Clusters
+Below poverty level,0.229,0.026,0.179,0.279,SpatialEpi 4% Clusters
+Above poverty level,-0.283,0.03,-0.342,-0.224,SpatialEpi 4% Clusters
+Age model intercept,6.837,0.022,6.794,6.879,SpatialEpi 4% Clusters
+Age 5-17,0.061,0.023,0.016,0.106,SpatialEpi 4% Clusters
+Age 18-34,0.03,0.032,-0.033,0.092,SpatialEpi 4% Clusters
+Age 35-64,0.008,0.036,-0.063,0.079,SpatialEpi 4% Clusters
+Age 65-74,-0.016,0.037,-0.089,0.057,SpatialEpi 4% Clusters
+Age 75 or more,-0.171,0.027,-0.224,-0.118,SpatialEpi 4% Clusters
+Biological sex model intercept,6.827,0.021,6.786,6.868,SpatialEpi 4% Clusters
+Male,-0.371,0.038,-0.446,-0.296,SpatialEpi 4% Clusters
+Female,0.279,0.04,0.201,0.358,SpatialEpi 4% Clusters
