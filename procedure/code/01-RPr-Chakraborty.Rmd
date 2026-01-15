@@ -1581,7 +1581,6 @@ Load data for GEE models
 
 ```{r load-derived, eval = FALSE}
 acs_covid <- st_read(here("data", "derived", "public", "acs_covid_clusters.gpkg"))
-state <- read_sf(here("data", "derived", "public", "acs.gpkg"), layer = "state")
 ```
 
 
@@ -1687,6 +1686,7 @@ Optionally, you may load the preprocessed data from `data/raw/public/gee_data.gp
 
 ```{r load preprocessed COVID cluster data, eval = FALSE}
 gee_data <- read_sf(here("data", "derived", "public", "gee_data.gpkg"))
+state <- read_sf(here("data", "derived", "public", "acs.gpkg"), layer = "state")
 ```
 
 ## GEE models
