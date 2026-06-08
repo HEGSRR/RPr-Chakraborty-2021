@@ -7,7 +7,6 @@
 - [Peter Kedron](https://sgsup.asu.edu/peter-kedron)
 - [Derrick Burt](https://derrickburt.github.io)
 - [Junyi Zhou](https://emilyzhou112.github.io)
-- [   ](    )
 
 ## Abstract
 
