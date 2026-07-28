@@ -30,6 +30,7 @@ This study is a replication of:
 
 ## Related to
 
+- `Publication`: https://doi.org/10.1111/gean.70053
 - `OSF Project`: https://doi.org/10.17605/OSF.IO/S5MTQ
 - `Pre-analysis Registration`: https://doi.org/10.17605/OSF.IO/MJXHD
 - `Post-analysis Report Registration`: https://doi.org/10.17605/OSF.IO/647EX 
